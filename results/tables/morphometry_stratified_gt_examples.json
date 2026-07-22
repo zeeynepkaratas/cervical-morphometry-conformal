@@ -1,0 +1,162 @@
+[
+  {
+    "cell_id": "153916114-153916150-001",
+    "class": "carcinoma_in_situ",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\carcinoma_in_situ\\153916114-153916150-001.BMP",
+    "image_shape": [
+      86,
+      82
+    ],
+    "nucleus_area": 2803,
+    "cytoplasm_area": 2220,
+    "nc_ratio_ground_truth": 1.2626126126126127,
+    "circularity_opencv_ground_truth": 0.6011181264762601,
+    "circularity_compute_function": 0.6011181264762601,
+    "circularity_numpy_fallback": 0.4131114753242724,
+    "opencv_minus_fallback": 0.18800665115198767
+  },
+  {
+    "cell_id": "148718455-148718461-001",
+    "class": "light_dysplastic",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\light_dysplastic\\148718455-148718461-001.BMP",
+    "image_shape": [
+      279,
+      144
+    ],
+    "nucleus_area": 8843,
+    "cytoplasm_area": 18421,
+    "nc_ratio_ground_truth": 0.48004994299983716,
+    "circularity_opencv_ground_truth": 0.8681455917412837,
+    "circularity_compute_function": 0.8681455917412837,
+    "circularity_numpy_fallback": 0.6123367020585541,
+    "opencv_minus_fallback": 0.25580888968272963
+  },
+  {
+    "cell_id": "149013033-149013072-001",
+    "class": "moderate_dysplastic",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\moderate_dysplastic\\149013033-149013072-001.BMP",
+    "image_shape": [
+      119,
+      112
+    ],
+    "nucleus_area": 2625,
+    "cytoplasm_area": 5720,
+    "nc_ratio_ground_truth": 0.4589160839160839,
+    "circularity_opencv_ground_truth": 0.8156209451775746,
+    "circularity_compute_function": 0.8156209451775746,
+    "circularity_numpy_fallback": 0.5540634718941956,
+    "opencv_minus_fallback": 0.26155747328337897
+  },
+  {
+    "cell_id": "158986813-158986820-001",
+    "class": "normal_columnar",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\normal_columnar\\158986813-158986820-001.BMP",
+    "image_shape": [
+      74,
+      84
+    ],
+    "nucleus_area": 1187,
+    "cytoplasm_area": 2856,
+    "nc_ratio_ground_truth": 0.41561624649859946,
+    "circularity_opencv_ground_truth": 0.8140986735175997,
+    "circularity_compute_function": 0.8140986735175997,
+    "circularity_numpy_fallback": 0.582667262470482,
+    "opencv_minus_fallback": 0.23143141104711773
+  },
+  {
+    "cell_id": "209522940-209522970-001",
+    "class": "normal_intermediate",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\normal_intermediate\\209522940-209522970-001.BMP",
+    "image_shape": [
+      241,
+      233
+    ],
+    "nucleus_area": 1426,
+    "cytoplasm_area": 27222,
+    "nc_ratio_ground_truth": 0.05238410109470281,
+    "circularity_opencv_ground_truth": 0.8663400878942388,
+    "circularity_compute_function": 0.8663400878942388,
+    "circularity_numpy_fallback": 0.5918762219605027,
+    "opencv_minus_fallback": 0.27446386593373606
+  },
+  {
+    "cell_id": "157184013-157184031-001",
+    "class": "normal_superficiel",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\normal_superficiel\\157184013-157184031-001.BMP",
+    "image_shape": [
+      173,
+      254
+    ],
+    "nucleus_area": 496,
+    "cytoplasm_area": 29371,
+    "nc_ratio_ground_truth": 0.01688740594463927,
+    "circularity_opencv_ground_truth": 0.8084124590123131,
+    "circularity_compute_function": 0.8084124590123131,
+    "circularity_numpy_fallback": 0.623291982472215,
+    "opencv_minus_fallback": 0.1851204765400981
+  },
+  {
+    "cell_id": "153654869-153654880-001",
+    "class": "severe_dysplastic",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\severe_dysplastic\\153654869-153654880-001.BMP",
+    "image_shape": [
+      121,
+      124
+    ],
+    "nucleus_area": 5918,
+    "cytoplasm_area": 5515,
+    "nc_ratio_ground_truth": 1.0730734360834089,
+    "circularity_opencv_ground_truth": 0.486626550364364,
+    "circularity_compute_function": 0.486626550364364,
+    "circularity_numpy_fallback": 0.28591995884574234,
+    "opencv_minus_fallback": 0.20070659151862164
+  },
+  {
+    "cell_id": "149011613-149011656-001",
+    "class": "light_dysplastic",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\light_dysplastic\\149011613-149011656-001.BMP",
+    "image_shape": [
+      249,
+      273
+    ],
+    "nucleus_area": 4434,
+    "cytoplasm_area": 31906,
+    "nc_ratio_ground_truth": 0.13897072650912054,
+    "circularity_opencv_ground_truth": 0.8274828171539456,
+    "circularity_compute_function": 0.8274828171539456,
+    "circularity_numpy_fallback": 0.5798052789185075,
+    "opencv_minus_fallback": 0.24767753823543803
+  },
+  {
+    "cell_id": "148503209-148503231-001",
+    "class": "light_dysplastic",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\light_dysplastic\\148503209-148503231-001.BMP",
+    "image_shape": [
+      206,
+      126
+    ],
+    "nucleus_area": 4556,
+    "cytoplasm_area": 7907,
+    "nc_ratio_ground_truth": 0.5761983052991021,
+    "circularity_opencv_ground_truth": 0.6544808862361308,
+    "circularity_compute_function": 0.6544808862361308,
+    "circularity_numpy_fallback": 0.4517452382828903,
+    "opencv_minus_fallback": 0.20273564795324045
+  },
+  {
+    "cell_id": "153915432-153915441-002",
+    "class": "severe_dysplastic",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\severe_dysplastic\\153915432-153915441-002.BMP",
+    "image_shape": [
+      99,
+      113
+    ],
+    "nucleus_area": 2948,
+    "cytoplasm_area": 3080,
+    "nc_ratio_ground_truth": 0.9571428571428572,
+    "circularity_opencv_ground_truth": 0.7483732712487057,
+    "circularity_compute_function": 0.7483732712487057,
+    "circularity_numpy_fallback": 0.5157838684998168,
+    "opencv_minus_fallback": 0.23258940274888884
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "cell_id": "148495842-148495854-001",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\light_dysplastic\\148495842-148495854-001.BMP",
+    "image_shape": [
+      124,
+      123
+    ],
+    "nucleus_area": 3078,
+    "cytoplasm_area": 6131,
+    "nc_ratio": 0.502038819115968,
+    "circularity": 0.33459592345153577
+  },
+  {
+    "cell_id": "148497551-148497588-001",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\light_dysplastic\\148497551-148497588-001.BMP",
+    "image_shape": [
+      98,
+      96
+    ],
+    "nucleus_area": 2615,
+    "cytoplasm_area": 4704,
+    "nc_ratio": 0.5559098639455783,
+    "circularity": 0.5430143954747378
+  },
+  {
+    "cell_id": "148497788-148497816-002",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\light_dysplastic\\148497788-148497816-002.BMP",
+    "image_shape": [
+      201,
+      166
+    ],
+    "nucleus_area": 2216,
+    "cytoplasm_area": 14949,
+    "nc_ratio": 0.14823734029032043,
+    "circularity": 0.5085666827638967
+  },
+  {
+    "cell_id": "148503209-148503222-001",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\light_dysplastic\\148503209-148503222-001.BMP",
+    "image_shape": [
+      189,
+      166
+    ],
+    "nucleus_area": 4857,
+    "cytoplasm_area": 11778,
+    "nc_ratio": 0.41237901171676006,
+    "circularity": 0.5157759437021913
+  },
+  {
+    "cell_id": "148503209-148503231-001",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\light_dysplastic\\148503209-148503231-001.BMP",
+    "image_shape": [
+      206,
+      126
+    ],
+    "nucleus_area": 4556,
+    "cytoplasm_area": 7907,
+    "nc_ratio": 0.5761983052991021,
+    "circularity": 0.4517452382828903
+  },
+  {
+    "cell_id": "148503400-148503432-001",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\light_dysplastic\\148503400-148503432-001.BMP",
+    "image_shape": [
+      131,
+      219
+    ],
+    "nucleus_area": 5990,
+    "cytoplasm_area": 13978,
+    "nc_ratio": 0.4285305480040063,
+    "circularity": 0.46578401512345885
+  },
+  {
+    "cell_id": "148503568-148503580-002",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\light_dysplastic\\148503568-148503580-002.BMP",
+    "image_shape": [
+      133,
+      140
+    ],
+    "nucleus_area": 4356,
+    "cytoplasm_area": 9071,
+    "nc_ratio": 0.48021166354315953,
+    "circularity": 0.3421194399759285
+  },
+  {
+    "cell_id": "148718455-148718461-001",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\light_dysplastic\\148718455-148718461-001.BMP",
+    "image_shape": [
+      279,
+      144
+    ],
+    "nucleus_area": 8843,
+    "cytoplasm_area": 18421,
+    "nc_ratio": 0.48004994299983716,
+    "circularity": 0.6123367020585541
+  },
+  {
+    "cell_id": "148719308-148719348-004",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\light_dysplastic\\148719308-148719348-004.BMP",
+    "image_shape": [
+      69,
+      121
+    ],
+    "nucleus_area": 2521,
+    "cytoplasm_area": 3840,
+    "nc_ratio": 0.6565104166666667,
+    "circularity": 0.5592793644304688
+  },
+  {
+    "cell_id": "148719308-148719357-001",
+    "file": "data\\raw\\herlev\\smear2005\\New database pictures\\light_dysplastic\\148719308-148719357-001.BMP",
+    "image_shape": [
+      82,
+      161
+    ],
+    "nucleus_area": 2770,
+    "cytoplasm_area": 6940,
+    "nc_ratio": 0.39913544668587897,
+    "circularity": 0.5229380235829414
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "cell_id": "148495842-148495854-001",
+    "class": "light_dysplastic",
+    "nc_ratio_ground_truth": 0.502038819115968,
+    "circularity_opencv_ground_truth": 0.4895700500621144,
+    "circularity_compute_function": 0.4895700500621144,
+    "circularity_numpy_fallback": 0.33459592345153577,
+    "opencv_minus_fallback": 0.15497412661057863
+  },
+  {
+    "cell_id": "148497551-148497588-001",
+    "class": "light_dysplastic",
+    "nc_ratio_ground_truth": 0.5559098639455783,
+    "circularity_opencv_ground_truth": 0.8205799088744168,
+    "circularity_compute_function": 0.8205799088744168,
+    "circularity_numpy_fallback": 0.5430143954747378,
+    "opencv_minus_fallback": 0.27756551339967894
+  },
+  {
+    "cell_id": "148497788-148497816-002",
+    "class": "light_dysplastic",
+    "nc_ratio_ground_truth": 0.14823734029032043,
+    "circularity_opencv_ground_truth": 0.7463071823333276,
+    "circularity_compute_function": 0.7463071823333276,
+    "circularity_numpy_fallback": 0.5085666827638967,
+    "opencv_minus_fallback": 0.23774049956943089
+  },
+  {
+    "cell_id": "148503209-148503222-001",
+    "class": "light_dysplastic",
+    "nc_ratio_ground_truth": 0.41237901171676006,
+    "circularity_opencv_ground_truth": 0.7514627594679846,
+    "circularity_compute_function": 0.7514627594679846,
+    "circularity_numpy_fallback": 0.5157759437021913,
+    "opencv_minus_fallback": 0.2356868157657933
+  },
+  {
+    "cell_id": "148503209-148503231-001",
+    "class": "light_dysplastic",
+    "nc_ratio_ground_truth": 0.5761983052991021,
+    "circularity_opencv_ground_truth": 0.6544808862361308,
+    "circularity_compute_function": 0.6544808862361308,
+    "circularity_numpy_fallback": 0.4517452382828903,
+    "opencv_minus_fallback": 0.20273564795324045
+  },
+  {
+    "cell_id": "148503400-148503432-001",
+    "class": "light_dysplastic",
+    "nc_ratio_ground_truth": 0.4285305480040063,
+    "circularity_opencv_ground_truth": 0.6770817444156346,
+    "circularity_compute_function": 0.6770817444156346,
+    "circularity_numpy_fallback": 0.46578401512345885,
+    "opencv_minus_fallback": 0.21129772929217577
+  },
+  {
+    "cell_id": "148503568-148503580-002",
+    "class": "light_dysplastic",
+    "nc_ratio_ground_truth": 0.48021166354315953,
+    "circularity_opencv_ground_truth": 0.486783015904898,
+    "circularity_compute_function": 0.486783015904898,
+    "circularity_numpy_fallback": 0.3421194399759285,
+    "opencv_minus_fallback": 0.1446635759289695
+  },
+  {
+    "cell_id": "148718455-148718461-001",
+    "class": "light_dysplastic",
+    "nc_ratio_ground_truth": 0.48004994299983716,
+    "circularity_opencv_ground_truth": 0.8681455917412837,
+    "circularity_compute_function": 0.8681455917412837,
+    "circularity_numpy_fallback": 0.6123367020585541,
+    "opencv_minus_fallback": 0.25580888968272963
+  },
+  {
+    "cell_id": "148719308-148719348-004",
+    "class": "light_dysplastic",
+    "nc_ratio_ground_truth": 0.6565104166666667,
+    "circularity_opencv_ground_truth": 0.8277155804917434,
+    "circularity_compute_function": 0.8277155804917434,
+    "circularity_numpy_fallback": 0.5592793644304688,
+    "opencv_minus_fallback": 0.26843621606127466
+  },
+  {
+    "cell_id": "148719308-148719357-001",
+    "class": "light_dysplastic",
+    "nc_ratio_ground_truth": 0.39913544668587897,
+    "circularity_opencv_ground_truth": 0.7947701206833819,
+    "circularity_compute_function": 0.7947701206833819,
+    "circularity_numpy_fallback": 0.5229380235829414,
+    "opencv_minus_fallback": 0.27183209710044054
+  }
+]

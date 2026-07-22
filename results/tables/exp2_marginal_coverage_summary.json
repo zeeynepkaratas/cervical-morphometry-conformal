@@ -1,0 +1,67 @@
+{
+  "checkpoint_path": "results\\unet_best_trainval.pt",
+  "split_path": "results\\tables\\herlev_group_split.json",
+  "target_coverage": 0.9,
+  "variant_count": {
+    "degradation_types": 4,
+    "variants_per_clean_image": 12,
+    "calibration_clean_images": 183,
+    "test_clean_images": 184,
+    "calibration_degraded_variants": 2196,
+    "test_degraded_variants": 2208,
+    "total_degraded_variants": 4404,
+    "train_touched": false
+  },
+  "coverage": [
+    {
+      "measurement": "nc_ratio",
+      "target_coverage": 0.9,
+      "q_hat": 0.49894556410868807,
+      "empirical_coverage": 0.8858695652173914,
+      "coverage_gap": -0.01413043478260867,
+      "mean_interval_width": 0.861851805072008,
+      "n_calibration_variants_total": 2196,
+      "n_calibration_scores_finite": 2196,
+      "n_test_variants_total": 2208,
+      "n_test_variants_finite": 2208
+    },
+    {
+      "measurement": "circularity",
+      "target_coverage": 0.9,
+      "q_hat": 0.25242161435469357,
+      "empirical_coverage": 0.8679417122040073,
+      "coverage_gap": -0.032058287795992735,
+      "mean_interval_width": 0.48628189194956695,
+      "n_calibration_variants_total": 2196,
+      "n_calibration_scores_finite": 2182,
+      "n_test_variants_total": 2208,
+      "n_test_variants_finite": 2196
+    }
+  ],
+  "sample_intervals": {
+    "nc_ratio": {
+      "measurement": "nc_ratio",
+      "cell_id": "148495842-148495854-001",
+      "variant_id": "gaussian_blur_1",
+      "point_prediction": 0.4104837455280759,
+      "interval": [
+        0.0,
+        0.909429309636764
+      ],
+      "ground_truth": 0.502038819115968,
+      "covered": true
+    },
+    "circularity": {
+      "measurement": "circularity",
+      "cell_id": "148495842-148495854-001",
+      "variant_id": "gaussian_blur_1",
+      "point_prediction": 0.7499200000274443,
+      "interval": [
+        0.49749838567275073,
+        1.0
+      ],
+      "ground_truth": 0.4895700500621144,
+      "covered": false
+    }
+  }
+}

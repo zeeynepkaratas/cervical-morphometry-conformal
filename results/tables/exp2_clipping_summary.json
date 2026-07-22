@@ -1,0 +1,24 @@
+{
+  "nc_ratio": {
+    "domain": [
+      0.0,
+      null
+    ],
+    "n_test_variants_finite": 2208,
+    "n_clipped_lower": 1135,
+    "n_clipped_upper": 0,
+    "n_clipped_both": 0,
+    "pct_clipped_either": 0.5140398550724637
+  },
+  "circularity": {
+    "domain": [
+      0.0,
+      1.0
+    ],
+    "n_test_variants_finite": 2196,
+    "n_clipped_lower": 42,
+    "n_clipped_upper": 703,
+    "n_clipped_both": 0,
+    "pct_clipped_either": 0.3392531876138434
+  }
+}

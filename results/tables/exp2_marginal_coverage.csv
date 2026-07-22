@@ -1,0 +1,3 @@
+measurement,target_coverage,q_hat,empirical_coverage,coverage_gap,mean_interval_width,n_calibration_variants_total,n_calibration_scores_finite,n_test_variants_total,n_test_variants_finite
+nc_ratio,0.9,0.49894556410868807,0.8858695652173914,-0.01413043478260867,0.861851805072008,2196,2196,2208,2208
+circularity,0.9,0.25242161435469357,0.8679417122040073,-0.032058287795992735,0.48628189194956695,2196,2182,2208,2196

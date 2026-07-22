@@ -1,0 +1,25 @@
+{
+  "raw_dir": "C:\\Users\\zeyne\\Documents\\YEN\u0130\\cervical-morphometry-conformal\\data\\raw\\herlev",
+  "expected_images": 917,
+  "n_images": 917,
+  "n_matched_masks": 917,
+  "n_checked_masks": 917,
+  "mask_values": {
+    "nucleus": [
+      0,
+      1
+    ],
+    "cytoplasm": [
+      0,
+      1
+    ]
+  },
+  "issues": [],
+  "manual_visual_alignment_check": {
+    "status": "visual_artifacts_generated_manual_judgement_required",
+    "alignment_grid": "results/figures/herlev_alignment_check.png",
+    "side_by_side_grid": "results/figures/herlev_side_by_side_check.png",
+    "note": "Code verifies shape/value/overlap consistency; final visual alignment is a manual review step."
+  },
+  "passed": true
+}

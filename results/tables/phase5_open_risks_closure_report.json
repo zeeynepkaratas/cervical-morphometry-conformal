@@ -1,0 +1,70 @@
+{
+  "re_epsilon": {
+    "value": 1e-06,
+    "used_in": "Experiment 1 relative-error diagnostics only; Experiment 2 split conformal uses absolute-error scores.",
+    "reference_minima": {
+      "nc_ratio": {
+        "n": 184,
+        "min": 0.0039790197142340385,
+        "median": 0.5167814584016618,
+        "epsilon_over_min_reference": 0.0002513181818181818
+      },
+      "circularity": {
+        "n": 184,
+        "min": 0.3330778251167574,
+        "median": 0.7642040720952874,
+        "epsilon_over_min_reference": 3.0023013379814737e-06
+      }
+    },
+    "status": "closed_eps_negligible_for_observed_references"
+  },
+  "visual_alignment": {
+    "status": "visual_artifacts_generated_manual_judgement_required",
+    "artifacts": [
+      "results/figures/herlev_alignment_check.png",
+      "results/figures/herlev_side_by_side_check.png"
+    ],
+    "code_validation_passed": true,
+    "issues": [],
+    "note": "Manual visual judgement is intentionally not automated."
+  },
+  "calibration_seed_repeats": {
+    "value": 5,
+    "used_by_mandatory_exp2": false,
+    "used_by_optional_helper": "src/conformal/calibration.py",
+    "status": "closed_documented_as_optional_reserved_config"
+  },
+  "conditional_multiple_comparisons": {
+    "n_comparisons": 24,
+    "method": "normal approximation per cell with Bonferroni correction at alpha=0.05",
+    "bonferroni_significant_cells": [
+      {
+        "measurement": "nc_ratio",
+        "degradation_type": "gaussian_noise",
+        "severity_level": "30.0",
+        "n_test": "184",
+        "empirical_coverage": "0.7880434782608695",
+        "coverage_gap": "-0.11195652173913051",
+        "bonferroni_pvalue": "9.948067805103287e-06"
+      },
+      {
+        "measurement": "circularity",
+        "degradation_type": "gaussian_noise",
+        "severity_level": "30.0",
+        "n_test": "183",
+        "empirical_coverage": "0.6284153005464481",
+        "coverage_gap": "-0.2715846994535519",
+        "bonferroni_pvalue": "4.2132007906671825e-33"
+      }
+    ],
+    "status": "closed_gaussian_noise_std30_remains_significant"
+  },
+  "end_to_end_execution_boundary": {
+    "status": "documented",
+    "note": "Current environment has run validation, diagnostics, and exp2 outputs; full retraining is not rerun as part of this closure."
+  },
+  "human_decision_leakage_boundary": {
+    "status": "limitation_to_state_in_manuscript",
+    "note": "Code/log/split artifacts show no calibration/test use in U-Net training; repo cannot prove absence of all human hyperparameter decisions outside tracked artifacts."
+  }
+}
