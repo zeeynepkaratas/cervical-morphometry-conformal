@@ -1,0 +1,29 @@
+# Python/runtime noise
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Local environments
+.venv/
+venv/
+env/
+
+# Raw datasets and downloaded archives
+data/raw/herlev/smear2005/
+data/raw/herlev/smear2005.zip
+data/raw/herlev/**/*.zip
+data/raw/herlev/**/*.pdf
+data/raw/herlev/**/*.xls
+data/raw/cx22/*
+!data/raw/cx22/.gitkeep
+
+# Large trained model checkpoints
+results/*.pt
+
+# Large per-sample experiment dumps
+results/tables/exp2_marginal_rows.json
+
+# Local OS/editor files
+.DS_Store
+Thumbs.db
