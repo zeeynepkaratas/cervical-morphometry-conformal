@@ -46,8 +46,20 @@ N_CALIBRATION_SEED_REPEATS = 5
 # --- Conformal hedef kapsam ---
 TARGET_COVERAGE = 0.90  # PDF örneklerinde %90 kullanıldı; %95'e çevrilebilir
 
+# --- CQR güçlendirme ayarları ---
+# CQR uses these nominal quantiles as the base interval and then applies the
+# same finite-sample split-conformal correction on the untouched calibration
+# split. The final target coverage is still TARGET_COVERAGE.
+CQR_LOWER_QUANTILE = 0.05
+CQR_UPPER_QUANTILE = 0.95
+CQR_QR_VAL_FRACTION = 0.10
+CQR_HIDDEN_CHANNELS = 32
+CQR_LEARNING_RATE = 1e-3
+CQR_MAX_EPOCHS = 400
+CQR_PATIENCE = 40
+
 # --- Zorunlu çekirdek / güçlendirme bayrakları (PDF 3.1) ---
-RUN_CQR = False          # Güçlendirme — split conformal baseline'ı doğrulamadan True yapma
+RUN_CQR = True           # Güçlendirme — global + Mondrian baseline doğrulandıktan sonra açıldı
 RUN_CX22_VALIDATION = False  # Güçlendirme — Cx22 format kontrolü geçmeden True yapma
 RUN_EXPLORATORY_5_MEASUREMENTS = False  # Deney 6 — tamamen opsiyonel
 
