@@ -256,12 +256,12 @@ def _instance_masks_from_mat(mat_path: Path, key: str, index: int) -> list[np.nd
         cell_ref = top[index, 0] if top.shape[0] >= top.shape[1] else top[0, index]
         cell = handle[cell_ref]
         if cell.dtype != object:
-            return [np.asarray(cell).T > 0]
+            return [np.asarray(cell) > 0]
         n_instances = int(cell.shape[1] if len(cell.shape) > 1 else cell.shape[0])
         masks = []
         for instance_index in range(n_instances):
             ref = cell[0, instance_index] if cell.shape[0] <= cell.shape[1] else cell[instance_index, 0]
-            masks.append(np.asarray(handle[ref]).T > 0)
+            masks.append(np.asarray(handle[ref]) > 0)
         return masks
 
 
