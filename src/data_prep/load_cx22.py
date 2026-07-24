@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import List, Tuple
 
 import numpy as np
+from PIL import Image
 
 
 CX22_ARCHIVES = ["Cx22-Pair.zip", "Cx22-Multi-Train.zip", "Cx22-Multi-Test.zip"]
@@ -28,6 +29,7 @@ REQUIRED_LABEL_MEMBERS = [
     "generator/ROIs_x_y.mat",
     "generator/ROIs_W_H.mat",
 ]
+GENERATED_DATASET_NAME = "ImageDataSet.mat"
 
 
 def list_cx22_images(raw_dir: Path) -> List[Path]:
@@ -46,15 +48,56 @@ def list_cx22_images(raw_dir: Path) -> List[Path]:
     return sorted(images)
 
 
+def list_cx22_samples(raw_dir: Path) -> List[str]:
+    """
+    List Cx22 sample ids available for full external validation.
+
+    Full validation requires the official generated ``ImageDataSet.mat`` file.
+    The three Cx22 label archives are concatenated in the fixed official order:
+    Pair, Multi-Train, Multi-Test. Sample ids are stable strings such as
+    ``Cx22-Pair:000001``.
+    """
+    raw_dir = Path(raw_dir)
+    dataset_path = _find_generated_dataset(raw_dir)
+    if dataset_path is None:
+        return []
+    n_images = _count_generated_images(dataset_path)
+    archive_counts = _archive_cell_counts(raw_dir)
+    samples: list[str] = []
+    offset = 0
+    for archive_name in CX22_ARCHIVES:
+        count = archive_counts.get(archive_name, 0)
+        for index in range(count):
+            if offset + index < n_images:
+                samples.append(_sample_id(archive_name, index))
+        offset += count
+    return samples
+
+
 def load_image_and_masks(image_path: Path) -> Tuple:
     """
-    Cx22 image loading is intentionally not implemented before Cx22-0 passes.
+    Load one generated Cx22 sample and its union nucleus/cytoplasm masks.
 
-    Use ``validate_cx22_compatibility`` first. It reports whether generated
-    image data are present. Full image+mask loading should only be implemented
-    after that report says external validation can proceed.
+    ``image_path`` may be either a concrete generated image file or a synthetic
+    Cx22 sample id encoded as ``data/raw/cx22/Cx22-Pair__000001.cx22``. For the
+    generated ``ImageDataSet.mat`` route, masks are read from the matching Cx22
+    label archive. Instance masks inside an image are unioned before returning
+    because the Herlev U-Net predicts semantic classes, not Cx22 instance ids.
     """
-    raise NotImplementedError("Cx22 image+mask loading requires generated ImageDataSet.mat or extracted images.")
+    image_path = Path(image_path)
+    if image_path.suffix == ".cx22":
+        raw_dir = _find_cx22_root(image_path)
+        archive_name, index = _parse_sample_path(image_path)
+        dataset_index = _global_sample_index(raw_dir, archive_name, index)
+        image = _load_generated_image(_find_generated_dataset_or_raise(raw_dir), dataset_index)
+        nucleus, cytoplasm = _load_union_masks(raw_dir / archive_name, index)
+        return image, nucleus, cytoplasm
+
+    image = np.asarray(Image.open(image_path).convert("RGB"))
+    raise NotImplementedError(
+        "Direct image-file Cx22 loading needs a naming convention that maps files "
+        "back to Cx22 label archive indices. Use generated .cx22 sample ids."
+    )
 
 
 def _import_h5py():
@@ -63,6 +106,78 @@ def _import_h5py():
     except ImportError as exc:
         raise ImportError("Cx22 MATLAB v7.3 .mat files require h5py for Python-only probing.") from exc
     return h5py
+
+
+def _find_cx22_root(path: Path) -> Path:
+    for parent in (path.parent, *path.parents):
+        if parent.name.lower() == "cx22":
+            return parent
+    return path.parent
+
+
+def _sample_id(archive_name: str, index: int) -> str:
+    return f"{Path(archive_name).stem}:{index + 1:06d}"
+
+
+def _sample_path(raw_dir: Path, archive_name: str, index: int) -> Path:
+    return Path(raw_dir) / f"{Path(archive_name).stem}__{index + 1:06d}.cx22"
+
+
+def _parse_sample_path(path: Path) -> tuple[str, int]:
+    stem = path.stem
+    archive_stem, index_text = stem.rsplit("__", 1)
+    archive_name = f"{archive_stem}.zip"
+    return archive_name, int(index_text) - 1
+
+
+def _find_generated_dataset(raw_dir: Path) -> Path | None:
+    raw_dir = Path(raw_dir)
+    candidates = sorted(raw_dir.rglob(GENERATED_DATASET_NAME)) if raw_dir.exists() else []
+    return candidates[0] if candidates else None
+
+
+def _find_generated_dataset_or_raise(raw_dir: Path) -> Path:
+    dataset_path = _find_generated_dataset(raw_dir)
+    if dataset_path is None:
+        raise FileNotFoundError(
+            f"{GENERATED_DATASET_NAME} not found under {raw_dir}. Generate it from LLPC/CCEDD source images first."
+        )
+    return dataset_path
+
+
+def _deref(handle, ref):
+    return handle[ref]
+
+
+def _count_generated_images(dataset_path: Path) -> int:
+    h5py = _import_h5py()
+    with h5py.File(dataset_path, "r") as handle:
+        dataset = handle["ImageDataSet"]
+        return int(max(dataset.shape))
+
+
+def _normalise_generated_image(array: np.ndarray) -> np.ndarray:
+    image = np.asarray(array)
+    image = np.squeeze(image)
+    if image.ndim != 3:
+        raise ValueError(f"Expected generated Cx22 RGB image, got shape {image.shape}")
+    if image.shape[0] == 3:
+        image = np.transpose(image, (2, 1, 0))
+    elif image.shape[-1] == 3:
+        image = image
+    elif image.shape[1] == 3:
+        image = np.transpose(image, (2, 0, 1))
+    else:
+        raise ValueError(f"Could not infer channel axis for generated Cx22 image shape {image.shape}")
+    return np.asarray(np.clip(image, 0, 255), dtype=np.uint8)
+
+
+def _load_generated_image(dataset_path: Path, index: int) -> np.ndarray:
+    h5py = _import_h5py()
+    with h5py.File(dataset_path, "r") as handle:
+        dataset = handle["ImageDataSet"]
+        ref = dataset[index, 0] if dataset.shape[0] >= dataset.shape[1] else dataset[0, index]
+        return _normalise_generated_image(np.asarray(_deref(handle, ref)))
 
 
 def _archive_members(archive_path: Path) -> list[str]:
@@ -102,6 +217,77 @@ def _extract_member_to_temp(archive_path: Path, suffix: str, contains: str) -> P
         temp.write(zf.read(candidate))
         temp.close()
         return Path(temp.name)
+
+
+def _archive_cell_count(archive_path: Path) -> int:
+    h5py = _import_h5py()
+    temp = _extract_member_to_temp(archive_path, ".mat", "CellNum.mat")
+    try:
+        with h5py.File(temp, "r") as handle:
+            dataset = handle["CellNum"]
+            return int(max(dataset.shape))
+    finally:
+        temp.unlink(missing_ok=True)
+
+
+def _archive_cell_counts(raw_dir: Path) -> dict[str, int]:
+    counts = {}
+    for archive_name in CX22_ARCHIVES:
+        archive_path = Path(raw_dir) / archive_name
+        if archive_path.exists():
+            counts[archive_name] = _archive_cell_count(archive_path)
+    return counts
+
+
+def _global_sample_index(raw_dir: Path, archive_name: str, index: int) -> int:
+    offset = 0
+    counts = _archive_cell_counts(raw_dir)
+    for name in CX22_ARCHIVES:
+        if name == archive_name:
+            return offset + index
+        offset += counts.get(name, 0)
+    raise KeyError(f"Unknown Cx22 archive: {archive_name}")
+
+
+def _instance_masks_from_mat(mat_path: Path, key: str, index: int) -> list[np.ndarray]:
+    h5py = _import_h5py()
+    with h5py.File(mat_path, "r") as handle:
+        top = handle[key]
+        cell_ref = top[index, 0] if top.shape[0] >= top.shape[1] else top[0, index]
+        cell = handle[cell_ref]
+        if cell.dtype != object:
+            return [np.asarray(cell).T > 0]
+        n_instances = int(cell.shape[1] if len(cell.shape) > 1 else cell.shape[0])
+        masks = []
+        for instance_index in range(n_instances):
+            ref = cell[0, instance_index] if cell.shape[0] <= cell.shape[1] else cell[instance_index, 0]
+            masks.append(np.asarray(handle[ref]).T > 0)
+        return masks
+
+
+def _union_instance_masks(mat_path: Path, key: str, index: int) -> np.ndarray:
+    masks = _instance_masks_from_mat(mat_path, key, index)
+    if not masks:
+        raise ValueError(f"No Cx22 masks found for {mat_path.name} index {index}")
+    union = np.zeros_like(masks[0], dtype=bool)
+    for mask in masks:
+        union |= mask
+    return union
+
+
+def _load_union_masks(archive_path: Path, index: int) -> tuple[np.ndarray, np.ndarray]:
+    nuc_temp = _extract_member_to_temp(archive_path, ".mat", "nuc/nuc_ins.mat")
+    cyto_temp = _extract_member_to_temp(archive_path, ".mat", "cyto/cyto_ins.mat")
+    try:
+        nucleus = _union_instance_masks(nuc_temp, "nuc_ins", index)
+        cytoplasm = _union_instance_masks(cyto_temp, "cyto_ins", index)
+    finally:
+        nuc_temp.unlink(missing_ok=True)
+        cyto_temp.unlink(missing_ok=True)
+    if nucleus.shape != cytoplasm.shape:
+        raise ValueError(f"Cx22 nucleus/cytoplasm shape mismatch: {nucleus.shape} vs {cytoplasm.shape}")
+    cytoplasm = np.logical_and(cytoplasm, ~nucleus)
+    return nucleus, cytoplasm
 
 
 def _sample_instance_stats_from_mat(mat_path: Path, key: str) -> dict:
@@ -152,6 +338,7 @@ def validate_cx22_compatibility(raw_dir: Path, herlev_reference_stats: dict) -> 
     archives = [raw_dir / name for name in CX22_ARCHIVES if (raw_dir / name).exists()]
     extracted_roots = [raw_dir / Path(name).stem for name in CX22_ARCHIVES if (raw_dir / Path(name).stem).exists()]
     images = list_cx22_images(raw_dir)
+    generated_dataset_path = _find_generated_dataset(raw_dir)
 
     if not raw_dir.exists():
         issues.append(f"raw_dir does not exist: {raw_dir}")
@@ -178,7 +365,7 @@ def validate_cx22_compatibility(raw_dir: Path, herlev_reference_stats: dict) -> 
             except Exception as exc:  # pragma: no cover - diagnostic path
                 issues.append(f"{archive.name} label probe failed: {type(exc).__name__}: {exc}")
 
-    generated_image_data_present = bool(images) or any(
+    generated_image_data_present = generated_dataset_path is not None or bool(images) or any(
         status.get("has_generated_image_data", False) for status in archive_status
     )
     if not generated_image_data_present:
@@ -192,6 +379,8 @@ def validate_cx22_compatibility(raw_dir: Path, herlev_reference_stats: dict) -> 
         and probe["cytoplasm"]["sample_mask_unique_values"] == [0, 1]
         for probe in label_probe
     )
+    archive_counts = _archive_cell_counts(raw_dir) if h5py_available and archives else {}
+    generated_image_count = _count_generated_images(generated_dataset_path) if generated_dataset_path else 0
     compatible = bool(labels_python_readable and generated_image_data_present)
     recommendation = "proceed" if compatible else "fallback_to_herlev_shift_or_generate_cx22_images_first"
 
@@ -203,6 +392,10 @@ def validate_cx22_compatibility(raw_dir: Path, herlev_reference_stats: dict) -> 
         "archives_found": [archive.name for archive in archives],
         "extracted_roots_found": [root.name for root in extracted_roots],
         "n_image_files_found": len(images),
+        "generated_dataset_path": str(generated_dataset_path) if generated_dataset_path else None,
+        "generated_image_count": generated_image_count,
+        "archive_cell_counts": archive_counts,
+        "n_listable_samples": len(list_cx22_samples(raw_dir)) if generated_dataset_path else 0,
         "h5py_available": h5py_available,
         "labels_python_readable": labels_python_readable,
         "generated_image_data_present": generated_image_data_present,
