@@ -1,0 +1,182 @@
+{
+  "compatible": false,
+  "recommendation": "fallback_to_herlev_shift_or_generate_cx22_images_first",
+  "issues": [
+    "No generated images/ImageDataSet.mat found. Official Cx22 README requires LLPC source images plus ImageDataGenerator.m before image+label pairs are available."
+  ],
+  "raw_dir": "C:\\Users\\zeyne\\Documents\\YEN\u0130\\cervical-morphometry-conformal\\data\\raw\\cx22",
+  "archives_found": [
+    "Cx22-Pair.zip",
+    "Cx22-Multi-Train.zip",
+    "Cx22-Multi-Test.zip"
+  ],
+  "extracted_roots_found": [],
+  "n_image_files_found": 0,
+  "h5py_available": true,
+  "labels_python_readable": true,
+  "generated_image_data_present": false,
+  "archive_status": [
+    {
+      "archive": "Cx22-Pair.zip",
+      "n_members": 15,
+      "missing_required_members": [],
+      "has_generated_image_data": false
+    },
+    {
+      "archive": "Cx22-Multi-Train.zip",
+      "n_members": 15,
+      "missing_required_members": [],
+      "has_generated_image_data": false
+    },
+    {
+      "archive": "Cx22-Multi-Test.zip",
+      "n_members": 15,
+      "missing_required_members": [],
+      "has_generated_image_data": false
+    }
+  ],
+  "label_probe": [
+    {
+      "archive": "Cx22-Pair.zip",
+      "nucleus": {
+        "top_shape": [
+          1,
+          820
+        ],
+        "first_cell_shape": [
+          1,
+          2
+        ],
+        "first_cell_instance_count": 2,
+        "sample_mask_shape": [
+          512,
+          512
+        ],
+        "sample_mask_dtype": "uint8",
+        "sample_mask_unique_values": [
+          0,
+          1
+        ],
+        "sample_mask_area": 484
+      },
+      "cytoplasm": {
+        "top_shape": [
+          1,
+          820
+        ],
+        "first_cell_shape": [
+          1,
+          2
+        ],
+        "first_cell_instance_count": 2,
+        "sample_mask_shape": [
+          512,
+          512
+        ],
+        "sample_mask_dtype": "uint8",
+        "sample_mask_unique_values": [
+          0,
+          1
+        ],
+        "sample_mask_area": 18771
+      }
+    },
+    {
+      "archive": "Cx22-Multi-Train.zip",
+      "nucleus": {
+        "top_shape": [
+          1,
+          400
+        ],
+        "first_cell_shape": [
+          1,
+          12
+        ],
+        "first_cell_instance_count": 12,
+        "sample_mask_shape": [
+          512,
+          512
+        ],
+        "sample_mask_dtype": "uint8",
+        "sample_mask_unique_values": [
+          0,
+          1
+        ],
+        "sample_mask_area": 255
+      },
+      "cytoplasm": {
+        "top_shape": [
+          1,
+          400
+        ],
+        "first_cell_shape": [
+          1,
+          12
+        ],
+        "first_cell_instance_count": 12,
+        "sample_mask_shape": [
+          512,
+          512
+        ],
+        "sample_mask_dtype": "uint8",
+        "sample_mask_unique_values": [
+          0,
+          1
+        ],
+        "sample_mask_area": 9115
+      }
+    },
+    {
+      "archive": "Cx22-Multi-Test.zip",
+      "nucleus": {
+        "top_shape": [
+          1,
+          100
+        ],
+        "first_cell_shape": [
+          1,
+          18
+        ],
+        "first_cell_instance_count": 18,
+        "sample_mask_shape": [
+          512,
+          512
+        ],
+        "sample_mask_dtype": "uint8",
+        "sample_mask_unique_values": [
+          0,
+          1
+        ],
+        "sample_mask_area": 66
+      },
+      "cytoplasm": {
+        "top_shape": [
+          1,
+          100
+        ],
+        "first_cell_shape": [
+          1,
+          18
+        ],
+        "first_cell_instance_count": 18,
+        "sample_mask_shape": [
+          512,
+          512
+        ],
+        "sample_mask_dtype": "uint8",
+        "sample_mask_unique_values": [
+          0,
+          1
+        ],
+        "sample_mask_area": 3960
+      }
+    }
+  ],
+  "herlev_reference_stats_keys": [],
+  "terms_of_use": "non-commercial research and educational purposes (per official Cx22 README)",
+  "phase": "Cx22-0 compatibility gate",
+  "external_validation_ready": false,
+  "fallback_domain_shift_summary_path": "C:\\Users\\zeyne\\Documents\\YEN\u0130\\cervical-morphometry-conformal\\results\\tables\\exp5_herlev_heavy_shift_summary.csv",
+  "fallback_domain_shift_rows": 6,
+  "next_step": "do_not_run_full_cx22_validation_until_generated_images_are_available"
+}
