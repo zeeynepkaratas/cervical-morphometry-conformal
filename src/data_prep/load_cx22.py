@@ -250,18 +250,33 @@ def _global_sample_index(raw_dir: Path, archive_name: str, index: int) -> int:
 
 
 def _instance_masks_from_mat(mat_path: Path, key: str, index: int) -> list[np.ndarray]:
+    """
+    Read one Cx22 sample's instance masks in image ``(row, column)`` order.
+
+    MATLAB v7.3 arrays are exposed by h5py with their first two axes reversed.
+    Cx22's generated images therefore align with ``stored_mask.T``. Keeping
+    this conversion at the loader boundary prevents every downstream crop,
+    overlay, and measurement from silently using swapped x/y coordinates.
+    """
+
+    def to_image_axes(dataset) -> np.ndarray:
+        mask = np.asarray(dataset)
+        if mask.ndim != 2:
+            raise ValueError(f"Expected a 2-D Cx22 mask, got shape {mask.shape}")
+        return mask.T.astype(bool, copy=False)
+
     h5py = _import_h5py()
     with h5py.File(mat_path, "r") as handle:
         top = handle[key]
         cell_ref = top[index, 0] if top.shape[0] >= top.shape[1] else top[0, index]
         cell = handle[cell_ref]
         if cell.dtype != object:
-            return [np.asarray(cell) > 0]
+            return [to_image_axes(cell)]
         n_instances = int(cell.shape[1] if len(cell.shape) > 1 else cell.shape[0])
         masks = []
         for instance_index in range(n_instances):
             ref = cell[0, instance_index] if cell.shape[0] <= cell.shape[1] else cell[instance_index, 0]
-            masks.append(np.asarray(handle[ref]) > 0)
+            masks.append(to_image_axes(handle[ref]))
         return masks
 
 

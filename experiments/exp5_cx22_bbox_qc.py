@@ -124,6 +124,19 @@ def _overlay(image: Image.Image, nucleus: np.ndarray, cytoplasm: np.ndarray, alp
     return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
 
 
+def _alignment_metrics(image: Image.Image, nucleus: np.ndarray, cytoplasm: np.ndarray) -> dict[str, float]:
+    """Return simple image-content checks under a paired Cx22 instance mask."""
+    image_array = np.asarray(image)
+    instance = np.logical_or(nucleus, cytoplasm)
+    if not instance.any():
+        raise ValueError("Cannot score an empty Cx22 instance mask.")
+    tissue = image_array.mean(axis=2) < 245
+    return {
+        "mask_tissue_fraction": float(tissue[instance].mean()),
+        "crop_blank_fraction": float((image_array.mean(axis=2) > 250).mean()),
+    }
+
+
 def _match_instances(nuc_masks: list[np.ndarray], cyto_masks: list[np.ndarray]) -> list[tuple[int, int, np.ndarray, np.ndarray]]:
     """
     Match Cx22 nucleus and cytoplasm instances by containment, not array index.
@@ -197,6 +210,7 @@ def generate_cx22_bbox_qc_grid(
             nuc_crop = nuc_mask[box[1] : box[3], box[0] : box[2]]
             cyto_crop = cyto_mask[box[1] : box[3], box[0] : box[2]]
             overlay_crop = _overlay(raw_crop, nuc_crop, cyto_crop)
+            alignment = _alignment_metrics(raw_crop, nuc_crop, cyto_crop)
             full_with_box = generated.copy()
             box_draw = ImageDraw.Draw(full_with_box)
             box_draw.rectangle(box, outline=(255, 220, 0), width=4)
@@ -210,6 +224,7 @@ def generate_cx22_bbox_qc_grid(
                     "crop_box": box,
                     "nucleus_area": int(np.count_nonzero(nuc_crop)),
                     "cytoplasm_area": int(np.count_nonzero(cyto_crop)),
+                    **alignment,
                 }
             )
             if len(panels) >= n_samples:
@@ -247,7 +262,16 @@ def generate_cx22_bbox_qc_grid(
     output_path.parent.mkdir(parents=True, exist_ok=True)
     sheet.save(output_path)
     metadata_path = output_path.with_suffix(".json")
-    metadata_path.write_text(json.dumps({"records": records}, indent=2), encoding="utf-8")
+    metadata_path.write_text(
+        json.dumps(
+            {
+                "mask_axis_conversion": "MATLAB v7.3 stored axes transposed to image (row, column) order",
+                "records": records,
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
     return {
         "output_path": str(output_path),
         "metadata_path": str(metadata_path),
