@@ -197,7 +197,10 @@ def generate_cx22_bbox_qc_grid(
             nuc_crop = nuc_mask[box[1] : box[3], box[0] : box[2]]
             cyto_crop = cyto_mask[box[1] : box[3], box[0] : box[2]]
             overlay_crop = _overlay(raw_crop, nuc_crop, cyto_crop)
-            panels.append((raw_crop, overlay_crop, f"{image_name} c{cyto_index + 1}/n{nuc_index + 1}"))
+            full_with_box = generated.copy()
+            box_draw = ImageDraw.Draw(full_with_box)
+            box_draw.rectangle(box, outline=(255, 220, 0), width=4)
+            panels.append((full_with_box, raw_crop, overlay_crop, f"{image_name} c{cyto_index + 1}/n{nuc_index + 1}"))
             records.append(
                 {
                     "image_name": image_name,
@@ -219,20 +222,27 @@ def generate_cx22_bbox_qc_grid(
         raise ValueError("No Cx22 bbox crop panels were generated.")
 
     cell_w, cell_h, label_h = 220, 220, 24
-    sheet = Image.new("RGB", (cell_w * 2, (cell_h + label_h) * len(panels)), (255, 255, 255))
+    sheet = Image.new("RGB", (cell_w * 3, (cell_h + label_h) * len(panels)), (255, 255, 255))
     draw = ImageDraw.Draw(sheet)
     try:
         font = ImageFont.truetype("arial.ttf", 14)
     except OSError:
         font = ImageFont.load_default()
 
-    for row, (raw_crop, overlay_crop, label) in enumerate(panels):
+    for row, (full_image, raw_crop, overlay_crop, label) in enumerate(panels):
         y = row * (cell_h + label_h)
+        full_resized = full_image.resize((cell_w, cell_h), Image.Resampling.BILINEAR)
         raw_resized = raw_crop.resize((cell_w, cell_h), Image.Resampling.BILINEAR)
         overlay_resized = overlay_crop.resize((cell_w, cell_h), Image.Resampling.BILINEAR)
-        sheet.paste(raw_resized, (0, y))
-        sheet.paste(overlay_resized, (cell_w, y))
-        draw.text((6, y + cell_h + 4), f"{label} | left=raw right=overlay", fill=(0, 0, 0), font=font)
+        sheet.paste(full_resized, (0, y))
+        sheet.paste(raw_resized, (cell_w, y))
+        sheet.paste(overlay_resized, (cell_w * 2, y))
+        draw.text(
+            (6, y + cell_h + 4),
+            f"{label} | full+box | raw crop | overlay crop",
+            fill=(0, 0, 0),
+            font=font,
+        )
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     sheet.save(output_path)
