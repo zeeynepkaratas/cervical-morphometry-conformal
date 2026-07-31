@@ -10,13 +10,13 @@ deneysel hattını içerir.
 - **Bozulmalar (4):** Gaussian blur, Gaussian noise, kontrast değişimi, düşük çözünürlük —
   bkz. `src/degradation/apply_degradations.py`. Şiddet parametreleri tek seferlik seçilir,
   "doğru filtreyi arama" YOKTUR.
-- **Veri setleri:** Herlev (birincil, zorunlu), Cx22 (dış doğrulama, güçlendirme katmanı)
+- **Veri setleri:** Herlev (birincil, zorunlu), Cx22 (keşifsel dış stres testi, güçlendirme katmanı)
 
 ## Zorunlu Çekirdek / Güçlendirme Ayrımı (PDF Bölüm 3.1)
 
 | Zorunlu Çekirdek | Güçlendirme (süre elverirse) |
 |---|---|
-| Herlev veri seti | Cx22 dış doğrulama |
+| Herlev veri seti | Cx22 keşifsel dış stres testi |
 | U-Net segmentasyon | 5 tekrar koşusu |
 | İki ölçüm | CQR (Conformalized Quantile Regression) |
 | Dice–morfometrik hata analizi (Deney 1) | Deney 6 — 2 vs 5 ölçüm |

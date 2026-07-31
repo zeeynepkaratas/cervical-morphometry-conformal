@@ -1,0 +1,42 @@
+name: Repository checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  static-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile Python sources
+        run: python -m compileall -q src experiments
+      - name: Validate JSON artifacts
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          for path in Path("results").rglob("*.json"):
+              with path.open(encoding="utf-8") as handle:
+                  json.load(handle)
+          PY
+      - name: Validate internal documentation links
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          missing = []
+          for document in Path("results/docs").glob("*.md"):
+              for fragment in document.read_text(encoding="utf-8").split("](")[1:]:
+                  target = fragment.split(")", 1)[0]
+                  if target.startswith(("http:", "https:", "#")):
+                      continue
+                  if not (document.parent / target).resolve().exists():
+                      missing.append(f"{document}: {target}")
+          if missing:
+              raise SystemExit("\n".join(missing))
+          PY
