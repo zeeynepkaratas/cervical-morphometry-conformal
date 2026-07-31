@@ -15,6 +15,8 @@ from typing import List, Tuple
 import numpy as np
 from PIL import Image
 
+from src.utils.config import DATA_RAW_CX22
+
 
 CX22_ARCHIVES = ["Cx22-Pair.zip", "Cx22-Multi-Train.zip", "Cx22-Multi-Test.zip"]
 REQUIRED_LABEL_MEMBERS = [
@@ -74,17 +76,26 @@ def list_cx22_samples(raw_dir: Path) -> List[str]:
     return samples
 
 
-def load_image_and_masks(image_path: Path) -> Tuple:
+def load_image_and_masks(image_path: Path | str) -> Tuple:
     """
     Load one generated Cx22 sample and its union nucleus/cytoplasm masks.
 
-    ``image_path`` may be either a concrete generated image file or a synthetic
-    Cx22 sample id encoded as ``data/raw/cx22/Cx22-Pair__000001.cx22``. For the
+    ``image_path`` may be a public sample id such as ``Cx22-Pair:000001`` or a
+    synthetic path such as ``data/raw/cx22/Cx22-Pair__000001.cx22``. For the
     generated ``ImageDataSet.mat`` route, masks are read from the matching Cx22
     label archive. Instance masks inside an image are unioned before returning
     because the Herlev U-Net predicts semantic classes, not Cx22 instance ids.
     """
-    image_path = Path(image_path)
+    sample_text = str(image_path)
+    if ":" in sample_text and Path(sample_text).suffix == "":
+        archive_stem, index_text = sample_text.rsplit(":", 1)
+        try:
+            index = int(index_text)
+        except ValueError as exc:
+            raise ValueError(f"Invalid Cx22 sample id: {sample_text}") from exc
+        image_path = DATA_RAW_CX22 / f"{archive_stem}__{index:06d}.cx22"
+    else:
+        image_path = Path(image_path)
     if image_path.suffix == ".cx22":
         raw_dir = _find_cx22_root(image_path)
         archive_name, index = _parse_sample_path(image_path)
@@ -93,10 +104,9 @@ def load_image_and_masks(image_path: Path) -> Tuple:
         nucleus, cytoplasm = _load_union_masks(raw_dir / archive_name, index)
         return image, nucleus, cytoplasm
 
-    image = np.asarray(Image.open(image_path).convert("RGB"))
-    raise NotImplementedError(
-        "Direct image-file Cx22 loading needs a naming convention that maps files "
-        "back to Cx22 label archive indices. Use generated .cx22 sample ids."
+    raise ValueError(
+        "Cx22 loading requires a public sample id (for example, Cx22-Pair:000001) "
+        "or a synthetic .cx22 path so labels can be mapped to the source archive."
     )
 
 

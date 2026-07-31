@@ -1,6 +1,6 @@
 {
-  "output_path": "C:\\Users\\zeyne\\Documents\\YEN\u0130\\cervical-morphometry-conformal\\results\\tables\\exp4_cqr_coverage.csv",
-  "summary_path": "C:\\Users\\zeyne\\Documents\\YEN\u0130\\cervical-morphometry-conformal\\results\\tables\\exp4_cqr_vs_mondrian_summary.json",
+  "output_path": "results/tables/exp4_cqr_coverage.csv",
+  "summary_path": "results/tables/exp4_cqr_vs_mondrian_summary.json",
   "target_coverage": 0.9,
   "n_rows": 78,
   "qr_split": {

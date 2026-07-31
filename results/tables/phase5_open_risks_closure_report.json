@@ -31,8 +31,8 @@
   "calibration_seed_repeats": {
     "value": 5,
     "used_by_mandatory_exp2": false,
-    "used_by_optional_helper": "src/conformal/calibration.py",
-    "status": "closed_documented_as_optional_reserved_config"
+    "used_by_active_pipeline": false,
+    "status": "reserved_config_not_consumed_by_the_active_pipeline"
   },
   "conditional_multiple_comparisons": {
     "n_comparisons": 24,

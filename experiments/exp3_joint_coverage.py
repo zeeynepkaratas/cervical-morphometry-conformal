@@ -1,20 +1,21 @@
+"""Experiment 3: strict cell-wise joint split-conformal coverage.
+
+This experiment is joint split conformal, not joint CQR. It delegates to the
+strict one-variant-per-cell protocol and defines success as covering both
+morphometric measurements for the same original cell.
 """
-DENEY 3 — Ortak Kapsam (Joint Coverage) — ANA METODOLOJİK SONUÇ (PDF Bölüm 6).
 
-Önkoşul: RUN_CQR = True (config.py) ve src/conformal/cqr_joint.py tamamlanmış olmalı.
-"""
+from __future__ import annotations
+
+import json
+
+from experiments.exp2_strict_cellwise_coverage import run_strict_cellwise_analysis
 
 
-def run_experiment_3():
-    """
-    TODO:
-        1. Ortak CQR kalibrasyonuyla iki ölçüm için aralık üret.
-        2. İki ölçümün de AYNI örnekte aralığa düştüğü oranı hesapla (joint coverage).
-        3. Ayrı (marjinal) kalibrasyonla karşılaştır — ana tabloyu doldur
-           (results/tables/main_results_table.csv, PDF'teki şablon).
-    """
-    raise NotImplementedError
+def run_experiment_3() -> dict:
+    """Run strict joint and marginal cell-level coverage re-analysis."""
+    return run_strict_cellwise_analysis()
 
 
 if __name__ == "__main__":
-    pass
+    print(json.dumps(run_experiment_3(), indent=2))

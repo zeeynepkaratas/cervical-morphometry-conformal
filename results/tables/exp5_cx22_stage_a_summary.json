@@ -1,0 +1,87 @@
+{
+  "analysis_scope": "Auxiliary raw-bbox protocol diagnostic for the Cx22 Multi-Test source partition; not a separate reported Cx22 analysis.",
+  "protocol": {
+    "dataset_split": "Cx22-Multi-Test source partition within the pooled Cx22 ShiftEval cohort",
+    "n_images": 100,
+    "model_training_or_finetuning_on_cx22": false,
+    "model_selection_or_calibration_on_cx22": false,
+    "checkpoint_path": "results\\unet_best_trainval.pt",
+    "conformal_interpretation": "Herlev global q_hat values are applied without recalibration as an external distribution-shift stress test; finite-sample split-conformal coverage is not claimed for Cx22."
+  },
+  "segmentation": {
+    "mean_foreground_dice": 0.20587766864173873,
+    "median_foreground_dice": 0.19830283744107002,
+    "mean_cytoplasm_dice": 0.28428526621065164,
+    "mean_nucleus_dice": 0.12747007107282565
+  },
+  "measurements": {
+    "nc_ratio": {
+      "q_hat_from_herlev_calibration": 0.49894556410868807,
+      "n_finite": 100,
+      "mean_absolute_error": 0.13001624025405925,
+      "empirical_coverage_with_herlev_q_hat": 0.98,
+      "coverage_gap_vs_0p90": 0.07999999999999996,
+      "mean_interval_width": 0.6506259596419163
+    },
+    "circularity": {
+      "q_hat_from_herlev_calibration": 0.25242161435469357,
+      "n_finite": 100,
+      "mean_absolute_error": 0.37693783477920834,
+      "empirical_coverage_with_herlev_q_hat": 0.26,
+      "coverage_gap_vs_0p90": -0.64,
+      "mean_interval_width": 0.4987066154146867
+    }
+  },
+  "crowding": {
+    "definition": "More than one ground-truth nucleus instance intersects the margin-expanded crop around the largest matched cytoplasm instance.",
+    "n_crowded": 60,
+    "pct_crowded": 60.0,
+    "mean_foreground_dice_crowded": 0.2197157077073077,
+    "mean_foreground_dice_not_crowded": 0.18512061004338512,
+    "subgroups": {
+      "crowded": {
+        "n_images": 60,
+        "measurements": {
+          "nc_ratio": {
+            "q_hat_from_herlev_calibration": 0.49894556410868807,
+            "n_finite": 60,
+            "mean_absolute_error": 0.1534358966560266,
+            "empirical_coverage_with_herlev_q_hat": 0.9666666666666667,
+            "coverage_gap_vs_0p90": 0.06666666666666665,
+            "mean_interval_width": 0.6723702431114453
+          },
+          "circularity": {
+            "q_hat_from_herlev_calibration": 0.25242161435469357,
+            "n_finite": 60,
+            "mean_absolute_error": 0.3946495576045173,
+            "empirical_coverage_with_herlev_q_hat": 0.18333333333333332,
+            "coverage_gap_vs_0p90": -0.7166666666666667,
+            "mean_interval_width": 0.4980276544517635
+          }
+        }
+      },
+      "not_crowded": {
+        "n_images": 40,
+        "measurements": {
+          "nc_ratio": {
+            "q_hat_from_herlev_calibration": 0.49894556410868807,
+            "n_finite": 40,
+            "mean_absolute_error": 0.09488675565110823,
+            "empirical_coverage_with_herlev_q_hat": 1.0,
+            "coverage_gap_vs_0p90": 0.09999999999999998,
+            "mean_interval_width": 0.6180095344376225
+          },
+          "circularity": {
+            "q_hat_from_herlev_calibration": 0.25242161435469357,
+            "n_finite": 40,
+            "mean_absolute_error": 0.35037025054124477,
+            "empirical_coverage_with_herlev_q_hat": 0.375,
+            "coverage_gap_vs_0p90": -0.525,
+            "mean_interval_width": 0.4997250568590716
+          }
+        }
+      }
+    }
+  },
+  "rows_path": "results/tables/exp5_cx22_stage_a_rows.csv"
+}

@@ -1,0 +1,66 @@
+{
+  "name": "Cx22-ShiftEval",
+  "description": "Cx22-derived structured external evaluation protocol; not an independent third dataset.",
+  "selection_before_model_outcomes": true,
+  "candidate_population": "All official Cx22 Pair, Multi-Train, and Multi-Test images (N=1320).",
+  "inclusion_rule": "At least one nucleus/cytoplasm pair with >=50% nucleus containment; choose largest matched cytoplasm-only instance deterministically.",
+  "tie_break_rule": "If cytoplasm-only areas tie, choose the smallest cytoplasm instance index; if still tied, choose the smallest nucleus instance index.",
+  "ground_truth_role": "Defines target-instance geometry and pre-inference shift metadata. RGB crop alone is model input; masks remain evaluation-only after crop construction.",
+  "n_candidate_images": 1320,
+  "n_included": 1320,
+  "n_excluded": 0,
+  "partition_counts_included": {
+    "Pair": 820,
+    "Multi-Train": 400,
+    "Multi-Test": 100
+  },
+  "partition_counts_excluded": {},
+  "exclusion_reasons": {},
+  "crowding_count_distribution": {
+    "1": 535,
+    "2": 708,
+    "3": 60,
+    "4": 12,
+    "5": 4,
+    "6": 1
+  },
+  "crowding_interpretation": "The binary crowded label means at least one additional nucleus intersects the fixed scale-normalized crop. Its prevalence describes Cx22 cell density; the integer candidate count is retained for sensitivity analyses.",
+  "predefined_shift_axes": {
+    "scale": {
+      "variable": "raw_whole_cell_fraction_at_128",
+      "labels": [
+        "low",
+        "middle",
+        "high"
+      ],
+      "pooled_tertile_cutpoints": [
+        0.04425048828125,
+        0.068115234375
+      ]
+    },
+    "nucleus_occupancy": {
+      "variable": "nucleus_to_whole_cell_fraction",
+      "labels": [
+        "low",
+        "middle",
+        "high"
+      ],
+      "pooled_tertile_cutpoints": [
+        0.017789325906488244,
+        0.029236059713908122
+      ]
+    },
+    "crowding": {
+      "variable": "n_candidate_nuclei_in_normalized_crop",
+      "labels": [
+        "not_crowded",
+        "crowded"
+      ],
+      "threshold": ">1"
+    }
+  },
+  "analysis_rule": "Each shift axis is analysed separately; outcome stratification is prohibited and axes are not cross-tabulated into small cells.",
+  "manifest_sha256": "669209792d4869f0b8d572cf996ef8e4894fef9e7c835767de8a2445b8748bb3",
+  "manifest_generated_utc": "2026-07-25T15:34:53.347546+00:00",
+  "manifest_path": "results\\tables\\cx22_shifteval_manifest.csv"
+}

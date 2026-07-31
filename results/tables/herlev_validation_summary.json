@@ -1,5 +1,5 @@
 {
-  "raw_dir": "C:\\Users\\zeyne\\Documents\\YEN\u0130\\cervical-morphometry-conformal\\data\\raw\\herlev",
+  "raw_dir": "data/raw/herlev",
   "expected_images": 917,
   "n_images": 917,
   "n_matched_masks": 917,

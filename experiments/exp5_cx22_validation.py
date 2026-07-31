@@ -1,4 +1,4 @@
-"""Experiment 5 / Cx22-0: external-validation compatibility gate.
+"""Cx22 external-evaluation compatibility check.
 
 This script deliberately stops before model inference. It checks whether Cx22
 is usable for real external validation in this workspace:
@@ -96,11 +96,11 @@ def run_experiment_5(
     exp4_rows_path: Path = RESULTS_TABLES / "exp4_cqr_coverage.csv",
     fallback_output_path: Path = RESULTS_TABLES / "exp5_herlev_heavy_shift_summary.csv",
 ) -> dict:
-    """Run the Cx22-0 compatibility gate and write a JSON report."""
+    """Run the Cx22 compatibility check and write a JSON report."""
     report = validate_cx22_compatibility(raw_dir, herlev_reference_stats={})
     fallback_rows = build_herlev_heavy_shift_summary(exp4_rows_path)
     _write_csv(fallback_output_path, fallback_rows)
-    report["phase"] = "Cx22-0 compatibility gate"
+    report["analysis_scope"] = "Cx22 input-availability compatibility check supporting the pooled ShiftEval evaluation."
     report["external_validation_ready"] = bool(report["compatible"])
     report["fallback_domain_shift_summary_path"] = str(fallback_output_path)
     report["fallback_domain_shift_rows"] = len(fallback_rows)

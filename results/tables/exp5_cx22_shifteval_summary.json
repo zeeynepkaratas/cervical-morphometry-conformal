@@ -1,0 +1,158 @@
+{
+  "analysis_scope": "Cx22 pooled evaluation (n=1320) with official source-partition breakdowns, including Multi-Test (n=100).",
+  "protocol_notice": "All selection and shift labels come from the committed pre-inference, outcome-blind manifest. GT sets crop geometry only; RGB alone is model input. This is one Cx22-derived exploratory evaluation, not a third independent dataset or a deployment protocol.",
+  "manifest_sha256_verified": "669209792d4869f0b8d572cf996ef8e4894fef9e7c835767de8a2445b8748bb3",
+  "n_images": 1320,
+  "model_training_or_finetuning_on_cx22": false,
+  "model_selection_or_calibration_on_cx22": false,
+  "conformal_interpretation": "Herlev q_hat values are external stress-test radii only; finite-sample Cx22 coverage is not claimed.",
+  "pooled": {
+    "n_images": 1320,
+    "mean_foreground_dice": 0.6320687239146235,
+    "median_foreground_dice": 0.6488415049969192,
+    "mean_cytoplasm_dice": 0.7952774981826058,
+    "mean_nucleus_dice": 0.46885994964664124,
+    "measurements": {
+      "nc_ratio": {
+        "q_hat_from_herlev_calibration": 0.49894556410868807,
+        "n_finite": 1320,
+        "mean_absolute_error": 0.160209417733815,
+        "empirical_coverage_with_herlev_q_hat": 0.9136363636363637,
+        "coverage_gap_vs_0p90": 0.013636363636363669,
+        "mean_interval_width": 0.6321167953553244
+      },
+      "circularity": {
+        "q_hat_from_herlev_calibration": 0.25242161435469357,
+        "n_finite": 1320,
+        "mean_absolute_error": 0.20832442173474144,
+        "empirical_coverage_with_herlev_q_hat": 0.6583333333333333,
+        "coverage_gap_vs_0p90": -0.2416666666666667,
+        "mean_interval_width": 0.4860078300962298
+      }
+    }
+  },
+  "by_source_partition": {
+    "Pair": {
+      "n_images": 820,
+      "mean_foreground_dice": 0.6293208339557046,
+      "median_foreground_dice": 0.6444079235597878,
+      "mean_cytoplasm_dice": 0.791408970218717,
+      "mean_nucleus_dice": 0.4672326976926922,
+      "measurements": {
+        "nc_ratio": {
+          "q_hat_from_herlev_calibration": 0.49894556410868807,
+          "n_finite": 820,
+          "mean_absolute_error": 0.15394326357794738,
+          "empirical_coverage_with_herlev_q_hat": 0.9219512195121952,
+          "coverage_gap_vs_0p90": 0.02195121951219514,
+          "mean_interval_width": 0.6344665034465011
+        },
+        "circularity": {
+          "q_hat_from_herlev_calibration": 0.25242161435469357,
+          "n_finite": 820,
+          "mean_absolute_error": 0.21548745649587658,
+          "empirical_coverage_with_herlev_q_hat": 0.6426829268292683,
+          "coverage_gap_vs_0p90": -0.2573170731707317,
+          "mean_interval_width": 0.4920387399444897
+        }
+      }
+    },
+    "Multi-Train": {
+      "n_images": 400,
+      "mean_foreground_dice": 0.6444805930585172,
+      "median_foreground_dice": 0.6683653570033947,
+      "mean_cytoplasm_dice": 0.8100487344573662,
+      "mean_nucleus_dice": 0.47891245165966817,
+      "measurements": {
+        "nc_ratio": {
+          "q_hat_from_herlev_calibration": 0.49894556410868807,
+          "n_finite": 400,
+          "mean_absolute_error": 0.1456051299192064,
+          "empirical_coverage_with_herlev_q_hat": 0.91,
+          "coverage_gap_vs_0p90": 0.010000000000000009,
+          "mean_interval_width": 0.6226641405621995
+        },
+        "circularity": {
+          "q_hat_from_herlev_calibration": 0.25242161435469357,
+          "n_finite": 400,
+          "mean_absolute_error": 0.194929280067051,
+          "empirical_coverage_with_herlev_q_hat": 0.6875,
+          "coverage_gap_vs_0p90": -0.21250000000000002,
+          "mean_interval_width": 0.4747517939622196
+        }
+      }
+    },
+    "Multi-Test": {
+      "n_images": 100,
+      "mean_foreground_dice": 0.6049539450021828,
+      "median_foreground_dice": 0.6235743303753436,
+      "mean_cytoplasm_dice": 0.7679144823874511,
+      "mean_nucleus_dice": 0.44199340761691425,
+      "measurements": {
+        "nc_ratio": {
+          "q_hat_from_herlev_calibration": 0.49894556410868807,
+          "n_finite": 100,
+          "mean_absolute_error": 0.270009033070364,
+          "empirical_coverage_with_herlev_q_hat": 0.86,
+          "coverage_gap_vs_0p90": -0.040000000000000036,
+          "mean_interval_width": 0.650659808180174
+        },
+        "circularity": {
+          "q_hat_from_herlev_calibration": 0.25242161435469357,
+          "n_finite": 100,
+          "mean_absolute_error": 0.20316810336419522,
+          "empirical_coverage_with_herlev_q_hat": 0.67,
+          "coverage_gap_vs_0p90": -0.22999999999999998,
+          "mean_interval_width": 0.4815785138765388
+        }
+      }
+    }
+  },
+  "stratification": {
+    "axes_analysed_separately": [
+      "scale_shift_tertile",
+      "nucleus_occupancy_tertile",
+      "crowding_group"
+    ],
+    "n_within_stratum_tests_for_bonferroni": 16,
+    "correction_family": "3 scale strata x 2 measurements + 3 occupancy strata x 2 measurements + 2 crowding strata x 2 measurements = 16",
+    "rows_path": "results\\tables\\exp5_cx22_shifteval_rows.csv",
+    "strata_path": "results\\tables\\exp5_cx22_shifteval_strata.csv"
+  },
+  "crowding_between_group_tests": [
+    {
+      "measurement": "nc_ratio",
+      "comparison": "crowded_vs_not_crowded",
+      "crowded_covered": 741,
+      "crowded_n": 785,
+      "crowded_coverage": 0.9439490445859873,
+      "not_crowded_covered": 465,
+      "not_crowded_n": 535,
+      "not_crowded_coverage": 0.8691588785046729,
+      "coverage_difference_crowded_minus_not_crowded": 0.07479016608131439,
+      "z_score": 4.749163299907494,
+      "two_sided_pvalue": 2.0425996094716846e-06,
+      "bonferroni_n_comparisons": 2,
+      "bonferroni_pvalue": 4.085199218943369e-06,
+      "bonferroni_significant_0p05": true,
+      "interpretation": "Exploratory between-group contrast; it is distinct from within-stratum tests against the 0.90 nominal target."
+    },
+    {
+      "measurement": "circularity",
+      "comparison": "crowded_vs_not_crowded",
+      "crowded_covered": 530,
+      "crowded_n": 785,
+      "crowded_coverage": 0.6751592356687898,
+      "not_crowded_covered": 339,
+      "not_crowded_n": 535,
+      "not_crowded_coverage": 0.6336448598130842,
+      "coverage_difference_crowded_minus_not_crowded": 0.04151437585570561,
+      "z_score": 1.561345582212118,
+      "two_sided_pvalue": 0.11844223408103233,
+      "bonferroni_n_comparisons": 2,
+      "bonferroni_pvalue": 0.23688446816206465,
+      "bonferroni_significant_0p05": false,
+      "interpretation": "Exploratory between-group contrast; it is distinct from within-stratum tests against the 0.90 nominal target."
+    }
+  ]
+}

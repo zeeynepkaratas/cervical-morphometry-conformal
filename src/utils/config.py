@@ -60,7 +60,7 @@ CQR_PATIENCE = 40
 
 # --- Zorunlu çekirdek / güçlendirme bayrakları (PDF 3.1) ---
 RUN_CQR = True           # Güçlendirme — global + Mondrian baseline doğrulandıktan sonra açıldı
-RUN_CX22_VALIDATION = False  # Güçlendirme — Cx22 format kontrolü geçmeden True yapma
+RUN_CX22_VALIDATION = True  # Cx22 pooled ShiftEval uses all official partitions; Multi-Test is a partition-level subgroup.
 RUN_EXPLORATORY_5_MEASUREMENTS = False  # Deney 6 — tamamen opsiyonel
 
 RANDOM_SEED = 42

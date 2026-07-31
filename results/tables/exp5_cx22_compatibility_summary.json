@@ -4,7 +4,7 @@
   "issues": [
     "No generated images/ImageDataSet.mat found. Official Cx22 README requires LLPC source images plus ImageDataGenerator.m before image+label pairs are available."
   ],
-  "raw_dir": "C:\\Users\\zeyne\\Documents\\YEN\u0130\\cervical-morphometry-conformal\\data\\raw\\cx22",
+  "raw_dir": "data/raw/cx22",
   "archives_found": [
     "Cx22-Pair.zip",
     "Cx22-Multi-Train.zip",
@@ -12,6 +12,14 @@
   ],
   "extracted_roots_found": [],
   "n_image_files_found": 0,
+  "generated_dataset_path": null,
+  "generated_image_count": 0,
+  "archive_cell_counts": {
+    "Cx22-Pair.zip": 820,
+    "Cx22-Multi-Train.zip": 400,
+    "Cx22-Multi-Test.zip": 100
+  },
+  "n_listable_samples": 0,
   "h5py_available": true,
   "labels_python_readable": true,
   "generated_image_data_present": false,
@@ -174,9 +182,9 @@
   ],
   "herlev_reference_stats_keys": [],
   "terms_of_use": "non-commercial research and educational purposes (per official Cx22 README)",
-  "phase": "Cx22-0 compatibility gate",
+  "analysis_scope": "Cx22 input-availability compatibility check supporting the pooled ShiftEval evaluation.",
   "external_validation_ready": false,
-  "fallback_domain_shift_summary_path": "C:\\Users\\zeyne\\Documents\\YEN\u0130\\cervical-morphometry-conformal\\results\\tables\\exp5_herlev_heavy_shift_summary.csv",
+  "fallback_domain_shift_summary_path": "results/tables/exp5_herlev_heavy_shift_summary.csv",
   "fallback_domain_shift_rows": 6,
   "next_step": "do_not_run_full_cx22_validation_until_generated_images_are_available"
 }

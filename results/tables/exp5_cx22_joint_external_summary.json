@@ -1,0 +1,61 @@
+{
+  "analysis_scope": "Exploratory Cx22 external joint-coverage stress test using fixed strict Herlev calibration.",
+  "interpretation_guardrail": "Cx22 does not contribute to calibration; this is not a formal Cx22 finite-sample guarantee.",
+  "target_coverage": 0.9,
+  "n_cx22_images": 1320,
+  "summary_by_partition": [
+    {
+      "partition": "Multi-Test",
+      "n_repeats": 5,
+      "mean_joint_valid_prediction_rate": 1.0,
+      "min_joint_valid_prediction_rate": 1.0,
+      "max_joint_valid_prediction_rate": 1.0,
+      "mean_joint_finite_case_coverage": 0.812,
+      "min_joint_finite_case_coverage": 0.78,
+      "max_joint_finite_case_coverage": 0.85,
+      "mean_joint_failure_aware_coverage": 0.812,
+      "min_joint_failure_aware_coverage": 0.78,
+      "max_joint_failure_aware_coverage": 0.85
+    },
+    {
+      "partition": "Multi-Train",
+      "n_repeats": 5,
+      "mean_joint_valid_prediction_rate": 1.0,
+      "min_joint_valid_prediction_rate": 1.0,
+      "max_joint_valid_prediction_rate": 1.0,
+      "mean_joint_finite_case_coverage": 0.8800000000000001,
+      "min_joint_finite_case_coverage": 0.855,
+      "max_joint_finite_case_coverage": 0.9075,
+      "mean_joint_failure_aware_coverage": 0.8800000000000001,
+      "min_joint_failure_aware_coverage": 0.855,
+      "max_joint_failure_aware_coverage": 0.9075
+    },
+    {
+      "partition": "Pair",
+      "n_repeats": 5,
+      "mean_joint_valid_prediction_rate": 1.0,
+      "min_joint_valid_prediction_rate": 1.0,
+      "max_joint_valid_prediction_rate": 1.0,
+      "mean_joint_finite_case_coverage": 0.8829268292682928,
+      "min_joint_finite_case_coverage": 0.8597560975609756,
+      "max_joint_finite_case_coverage": 0.9158536585365854,
+      "mean_joint_failure_aware_coverage": 0.8829268292682928,
+      "min_joint_failure_aware_coverage": 0.8597560975609756,
+      "max_joint_failure_aware_coverage": 0.9158536585365854
+    },
+    {
+      "partition": "pooled",
+      "n_repeats": 5,
+      "mean_joint_valid_prediction_rate": 1.0,
+      "min_joint_valid_prediction_rate": 1.0,
+      "max_joint_valid_prediction_rate": 1.0,
+      "mean_joint_finite_case_coverage": 0.8766666666666666,
+      "min_joint_finite_case_coverage": 0.8522727272727273,
+      "max_joint_finite_case_coverage": 0.9083333333333333,
+      "mean_joint_failure_aware_coverage": 0.8766666666666666,
+      "min_joint_failure_aware_coverage": 0.8522727272727273,
+      "max_joint_failure_aware_coverage": 0.9083333333333333
+    }
+  ],
+  "repeat_rows_path": "results\\tables\\exp5_cx22_joint_external_repeats.csv"
+}

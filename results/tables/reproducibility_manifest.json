@@ -1,0 +1,42 @@
+{
+  "git_head_before_manifest_commit": "fdf961e18cfd06de19154cd721fe6afbc18885be",
+  "python_version": "3.12.13",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "direct_package_versions": {
+    "torch": null,
+    "numpy": "2.3.5",
+    "Pillow": "12.2.0",
+    "opencv-python": null,
+    "scipy": null,
+    "matplotlib": null,
+    "h5py": null
+  },
+  "packages_unavailable_in_manifest_runtime": [
+    "torch",
+    "opencv-python",
+    "scipy",
+    "matplotlib",
+    "h5py"
+  ],
+  "requirements_lock": {
+    "path": "requirements-lock.txt",
+    "sha256": "6f6c949aed51332bc9738c5d3b172439b892ed46827334a45cba469ee1db5fab"
+  },
+  "checkpoint": {
+    "path": "results\\unet_best_trainval.pt",
+    "exists": true,
+    "sha256": "91e8b3430ea8425634485bbfdd210c2b559a10f71a906498db1c4bdd089a835f"
+  },
+  "raw_data": {
+    "herlev": {
+      "path": "data\\raw\\herlev",
+      "n_files": 1841,
+      "aggregate_sha256": "d968885a86beb73074cc53e6a5f3b8c2353764c4d0296f10a6634b7acacf5c31"
+    },
+    "cx22": {
+      "path": "data\\raw\\cx22",
+      "n_files": 5,
+      "aggregate_sha256": "6ad53459ef8cf3f531b4df50fda3f0021baf83130c4e2e1ae1ea2f4d54fa1ac3"
+    }
+  }
+}

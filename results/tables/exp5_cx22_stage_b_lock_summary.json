@@ -1,0 +1,42 @@
+{
+  "analysis_scope": "Cx22 pooled evaluation (n=1320): Multi-Test source-partition statistical summary (n=100).",
+  "dataset": "Cx22-Multi-Test source partition",
+  "n_images": 100,
+  "protocol": "Scale-normalized known-localisation crop. GT masks set crop centre/scale only; model input is RGB alone; masks are evaluation-only.",
+  "interpretation_guardrail": "Herlev q_hat values are applied without Cx22 recalibration, so this is an external stress test rather than a finite-sample Cx22 coverage guarantee.",
+  "normal_approximation_note": "Uses the same target-null normal approximation and Bonferroni convention as the existing conditional-coverage analyses.",
+  "measurements": {
+    "nc_ratio": {
+      "n_rows_total": 100,
+      "n_finite": 100,
+      "n_nonfinite": 0,
+      "n_covered": 86,
+      "n_not_covered": 14,
+      "empirical_coverage": 0.86,
+      "coverage_gap_vs_0p90": -0.040000000000000036,
+      "standard_error_at_nominal": 0.03,
+      "z_score_vs_nominal": -1.3333333333333346,
+      "two_sided_pvalue_normal_approx": 0.1824224394517353,
+      "bonferroni_n_comparisons": 2,
+      "bonferroni_pvalue": 0.3648448789034706,
+      "bonferroni_significant_0p05": false,
+      "interpretation": "Coverage was not statistically distinguishable from the 0.90 nominal target at n=100; this does not establish equivalence or a formal transfer guarantee."
+    },
+    "circularity": {
+      "n_rows_total": 100,
+      "n_finite": 100,
+      "n_nonfinite": 0,
+      "n_covered": 67,
+      "n_not_covered": 33,
+      "empirical_coverage": 0.67,
+      "coverage_gap_vs_0p90": -0.22999999999999998,
+      "standard_error_at_nominal": 0.03,
+      "z_score_vs_nominal": -7.666666666666666,
+      "two_sided_pvalue_normal_approx": 1.7652374320907365e-14,
+      "bonferroni_n_comparisons": 2,
+      "bonferroni_pvalue": 3.530474864181473e-14,
+      "bonferroni_significant_0p05": true,
+      "interpretation": "Coverage remained significantly below the 0.90 nominal target after two-measurement Bonferroni correction."
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "analysis_type": "exploratory_post_hoc_mechanism_diagnostic",
+  "n_rows": 1320,
+  "interpretation_guardrail": "Correlations and buffer ratios explain completed results; they were not used to select data, tune the model, or alter conformal calibration.",
+  "measurements": {
+    "nc_ratio": {
+      "n_finite": 1320,
+      "q_hat": 0.49894556410868807,
+      "mean_absolute_error": 0.160209417733815,
+      "median_absolute_error": 0.03056805644584372,
+      "error_mean_to_median_ratio": 5.241073079593792,
+      "q_hat_to_mean_error_buffer_ratio": 3.1143335464690156,
+      "q_hat_to_median_error_buffer_ratio": 16.32244971127462,
+      "mean_observed_interval_width": 0.6321167953553244,
+      "nucleus_dice_vs_absolute_error": {
+        "pearson_r": -0.5238427902230086,
+        "pearson_pvalue": 6.55982290902769e-94,
+        "spearman_rho": -0.8406275370926648,
+        "spearman_pvalue": 0.0
+      },
+      "coverage_by_nucleus_dice": {
+        "mean_nucleus_dice_covered": 0.5063314116123704,
+        "mean_nucleus_dice_not_covered": 0.07245132569340089
+      },
+      "q_hat_threshold_check": {
+        "n_abs_error_exceeds_q_hat": 114,
+        "pct_abs_error_exceeds_q_hat": 8.636363636363637,
+        "coverage_from_abs_error_threshold": 0.9136363636363637,
+        "observed_interval_coverage": 0.9136363636363637,
+        "n_disagreements_threshold_vs_interval": 0,
+        "interpretation": "Zero disagreements means domain clipping did not alter coverage relative to abs_error <= q_hat."
+      }
+    },
+    "circularity": {
+      "n_finite": 1320,
+      "q_hat": 0.25242161435469357,
+      "mean_absolute_error": 0.20832442173474144,
+      "median_absolute_error": 0.1363973797385587,
+      "error_mean_to_median_ratio": 1.52733448497361,
+      "q_hat_to_mean_error_buffer_ratio": 1.2116755791411766,
+      "q_hat_to_median_error_buffer_ratio": 1.8506338966226896,
+      "mean_observed_interval_width": 0.4860078300962298,
+      "nucleus_dice_vs_absolute_error": {
+        "pearson_r": -0.6049032941765069,
+        "pearson_pvalue": 1.506594548144333e-132,
+        "spearman_rho": -0.6158479318923266,
+        "spearman_pvalue": 1.1896059713228454e-138
+      },
+      "coverage_by_nucleus_dice": {
+        "mean_nucleus_dice_covered": 0.5864260924710074,
+        "mean_nucleus_dice_not_covered": 0.2423300646923745
+      },
+      "q_hat_threshold_check": {
+        "n_abs_error_exceeds_q_hat": 451,
+        "pct_abs_error_exceeds_q_hat": 34.166666666666664,
+        "coverage_from_abs_error_threshold": 0.6583333333333333,
+        "observed_interval_coverage": 0.6583333333333333,
+        "n_disagreements_threshold_vs_interval": 0,
+        "interpretation": "Zero disagreements means domain clipping did not alter coverage relative to abs_error <= q_hat."
+      }
+    }
+  }
+}

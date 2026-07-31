@@ -1,0 +1,61 @@
+{
+  "purpose": "Protocol diagnostic for the Cx22 Multi-Test source partition; it supports the pooled Cx22 ShiftEval evaluation and is not a separate analysis.",
+  "preprocessing": "Exact build_segmentation_target() 128x128 isotropic resize plus padding used by the Herlev U-Net.",
+  "herlev_calibration_plus_test": {
+    "n_images": 367,
+    "cytoplasm_fraction": {
+      "mean": 0.3320754880151567,
+      "median": 0.3223876953125,
+      "p05": 0.127850341796875,
+      "p95": 0.57474365234375
+    },
+    "nucleus_fraction": {
+      "mean": 0.1700447768541383,
+      "median": 0.15008544921875,
+      "p05": 0.006304931640625,
+      "p95": 0.3985595703125
+    },
+    "whole_cell_fraction": {
+      "mean": 0.502120264869295,
+      "median": 0.5057373046875,
+      "p05": 0.26627197265625,
+      "p95": 0.701348876953125
+    }
+  },
+  "cx22_multi_test": {
+    "n_images": 100,
+    "cytoplasm_fraction": {
+      "mean": 0.2195623779296875,
+      "median": 0.20184326171875,
+      "p05": 0.1024200439453125,
+      "p95": 0.38822631835937493
+    },
+    "nucleus_fraction": {
+      "mean": 0.0079986572265625,
+      "median": 0.007232666015625,
+      "p05": 0.0023162841796875,
+      "p95": 0.015237426757812499
+    },
+    "whole_cell_fraction": {
+      "mean": 0.22756103515625,
+      "median": 0.209930419921875,
+      "p05": 0.1107208251953125,
+      "p95": 0.4021514892578124
+    }
+  },
+  "cx22_over_herlev": {
+    "cytoplasm_fraction": {
+      "median_cx22_over_herlev": 0.626088602801969,
+      "mean_cx22_over_herlev": 0.6611821283227811
+    },
+    "nucleus_fraction": {
+      "median_cx22_over_herlev": 0.048190321268808456,
+      "mean_cx22_over_herlev": 0.04703853522900984
+    },
+    "whole_cell_fraction": {
+      "median_cx22_over_herlev": 0.41509775524981896,
+      "mean_cx22_over_herlev": 0.4532002611276515
+    }
+  },
+  "interpretation_rule": "Ratios far below 1 indicate Cx22 annotated cells occupy less of the model input than Herlev; ratios near 1 do not support a simple foreground-scale explanation."
+}

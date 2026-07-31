@@ -1,0 +1,165 @@
+{
+  "mask_axis_conversion": "MATLAB v7.3 stored axes transposed to image (row, column) order",
+  "records": [
+    {
+      "image_name": "00477",
+      "sample_index": 0,
+      "cytoplasm_instance_index": 13,
+      "nucleus_instance_index": 11,
+      "crop_box": [
+        380,
+        4,
+        486,
+        110
+      ],
+      "nucleus_area": 109,
+      "cytoplasm_area": 5722,
+      "mask_tissue_fraction": 1.0,
+      "crop_blank_fraction": 0.0
+    },
+    {
+      "image_name": "00478",
+      "sample_index": 1,
+      "cytoplasm_instance_index": 6,
+      "nucleus_instance_index": 5,
+      "crop_box": [
+        291,
+        168,
+        512,
+        389
+      ],
+      "nucleus_area": 237,
+      "cytoplasm_area": 15845,
+      "mask_tissue_fraction": 1.0,
+      "crop_blank_fraction": 0.0
+    },
+    {
+      "image_name": "00478",
+      "sample_index": 2,
+      "cytoplasm_instance_index": 8,
+      "nucleus_instance_index": 1,
+      "crop_box": [
+        110,
+        226,
+        318,
+        434
+      ],
+      "nucleus_area": 231,
+      "cytoplasm_area": 18261,
+      "mask_tissue_fraction": 1.0,
+      "crop_blank_fraction": 0.0
+    },
+    {
+      "image_name": "00478",
+      "sample_index": 3,
+      "cytoplasm_instance_index": 3,
+      "nucleus_instance_index": 1,
+      "crop_box": [
+        324,
+        140,
+        512,
+        328
+      ],
+      "nucleus_area": 275,
+      "cytoplasm_area": 13715,
+      "mask_tissue_fraction": 1.0,
+      "crop_blank_fraction": 0.0
+    },
+    {
+      "image_name": "00479",
+      "sample_index": 4,
+      "cytoplasm_instance_index": 6,
+      "nucleus_instance_index": 1,
+      "crop_box": [
+        97,
+        0,
+        279,
+        182
+      ],
+      "nucleus_area": 307,
+      "cytoplasm_area": 15299,
+      "mask_tissue_fraction": 1.0,
+      "crop_blank_fraction": 0.0
+    },
+    {
+      "image_name": "00480",
+      "sample_index": 5,
+      "cytoplasm_instance_index": 10,
+      "nucleus_instance_index": 11,
+      "crop_box": [
+        317,
+        159,
+        493,
+        335
+      ],
+      "nucleus_area": 68,
+      "cytoplasm_area": 14258,
+      "mask_tissue_fraction": 1.0,
+      "crop_blank_fraction": 0.0
+    },
+    {
+      "image_name": "00480",
+      "sample_index": 6,
+      "cytoplasm_instance_index": 6,
+      "nucleus_instance_index": 7,
+      "crop_box": [
+        178,
+        87,
+        352,
+        261
+      ],
+      "nucleus_area": 79,
+      "cytoplasm_area": 10403,
+      "mask_tissue_fraction": 1.0,
+      "crop_blank_fraction": 0.0
+    },
+    {
+      "image_name": "00482",
+      "sample_index": 7,
+      "cytoplasm_instance_index": 2,
+      "nucleus_instance_index": 2,
+      "crop_box": [
+        78,
+        152,
+        309,
+        383
+      ],
+      "nucleus_area": 424,
+      "cytoplasm_area": 18080,
+      "mask_tissue_fraction": 1.0,
+      "crop_blank_fraction": 0.0
+    },
+    {
+      "image_name": "00483",
+      "sample_index": 8,
+      "cytoplasm_instance_index": 7,
+      "nucleus_instance_index": 5,
+      "crop_box": [
+        227,
+        232,
+        418,
+        423
+      ],
+      "nucleus_area": 185,
+      "cytoplasm_area": 14115,
+      "mask_tissue_fraction": 1.0,
+      "crop_blank_fraction": 0.020942408376963352
+    },
+    {
+      "image_name": "00485",
+      "sample_index": 9,
+      "cytoplasm_instance_index": 0,
+      "nucleus_instance_index": 1,
+      "crop_box": [
+        198,
+        68,
+        362,
+        232
+      ],
+      "nucleus_area": 307,
+      "cytoplasm_area": 11337,
+      "mask_tissue_fraction": 1.0,
+      "crop_blank_fraction": 0.0
+    }
+  ]
+}

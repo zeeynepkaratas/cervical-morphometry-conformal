@@ -94,13 +94,3 @@ def compute_circularity(nucleus_mask: np.ndarray) -> float:
 def relative_error(predicted: float, reference: float, eps: float = RE_EPSILON) -> float:
     """RE = |predicted - reference| / (|reference| + eps)."""
     return abs(predicted - reference) / (abs(reference) + eps)
-
-
-def measure_exploratory(nucleus_mask: np.ndarray, cytoplasm_mask: np.ndarray) -> dict:
-    """
-    Optional experiment-6 measurements, only after the mandatory core is done:
-        - boundary irregularity
-        - nucleus eccentricity/offset from cell center
-        - perimeter length
-    """
-    raise NotImplementedError

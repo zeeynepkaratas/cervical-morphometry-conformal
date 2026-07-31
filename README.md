@@ -1,8 +1,8 @@
-# Cervical Morphometry Conformal — Proje İskeleti
+# Cervical Morphometry Conformal
 
-Bu iskelet, "Görüntü Bozulmaları Altında Çekirdek/Sitoplazma Oranı ve Çekirdek
-Daireselliği İçin Ortak Conformal Tahmin Aralıkları" projesinin nihai teknik
-proje önerisinden (Teknik_Proje_Onerisi.pdf) üretilmiştir.
+Bu repo, "Görüntü Bozulmaları Altında Çekirdek/Sitoplazma Oranı ve Çekirdek
+Daireselliği İçin Ortak Conformal Tahmin Aralıkları" projesinin uygulanmış
+deneysel hattını içerir.
 
 ## Kilitli Kapsam (değiştirme)
 
@@ -23,8 +23,7 @@ proje önerisinden (Teknik_Proje_Onerisi.pdf) üretilmiştir.
 | Split conformal + ortak max-score | |
 
 `src/utils/config.py` içindeki `RUN_CQR`, `RUN_CX22_VALIDATION`,
-`RUN_EXPLORATORY_5_MEASUREMENTS` bayrakları bu ayrımı kodda da yansıtır —
-zorunlu çekirdek doğrulanmadan bu bayrakları `True` yapma.
+`RUN_EXPLORATORY_5_MEASUREMENTS` bayrakları bu ayrımı kodda da yansıtır.
 
 ## Çalıştırma Sırası (fazlı — bkz. proje planı sohbeti)
 
@@ -38,7 +37,21 @@ zorunlu çekirdek doğrulanmadan bu bayrakları `True` yapma.
    Örüntü ("benzer Dice, farklı hata") doğrulanmazsa DUR ve kapsamı yeniden değerlendir.
 5. **Faz 5 — Zorunlu çekirdek tamamlama:** `apply_degradations.py` + `split_conformal.py`
    + Deney 2.
-6. **Faz 6 — Güçlendirme (süre/güven varsa):** `cqr_joint.py`, Cx22 doğrulama, Deney 3-6.
+6. **Faz 6 — Güçlendirme:** `experiments/exp3_mondrian_coverage.py`,
+   `experiments/exp4_cqr_coverage.py` ve Cx22 ShiftEval dış değerlendirmesi.
+
+## Strict Cell-Wise Protocol
+
+The original all-variant grid remains an empirical degradation analysis. The
+strict protocol in `experiments/exp2_strict_cellwise_coverage.py` selects one
+degradation variant per original cell for each of five fixed seeds, uses the
+disjoint U-Net validation split only to fix joint-score normalization scales,
+and reports failure-aware coverage. `experiments/exp3_joint_coverage.py` is
+the joint split-conformal entry point; `experiments/exp5_cx22_joint_external.py`
+applies fixed Herlev calibration to Cx22 as an exploratory external stress test.
+Historical script filenames are retained for repository stability; the shared
+`exp3_` prefix does not imply that joint and Mondrian analyses are the same
+paper experiment.
 
 ## Veri Sızıntısı — KRİTİK KURAL
 
@@ -48,12 +61,20 @@ her hücreden yalnızca bir varyant kullanılır (5 farklı tohumla tekrarlanır
 
 ## Cx22 Yedek Planı
 
-`src/data_prep/load_cx22.py::validate_cx22_compatibility()` uyumsuzluk bulursa,
-dış doğrulama `experiments/exp5_cx22_validation.py` içinde `use_fallback=True` ile
-Herlev-içi ağır-bozulma domain-shift testine döner. Proje bu durumda çökmez.
+`src/data_prep/load_cx22.py::validate_cx22_compatibility()` yalnızca Cx22
+girdi/etiket kullanılabilirliğini denetler. Gerektiğinde
+`experiments/exp5_cx22_validation.py` Herlev-içi ağır-bozulma fallback
+özetini üretir; Cx22 ShiftEval ise ayrı, pooled n=1320 hattıdır.
 
-## Not
+## Cx22 Reporting Convention
 
-Bu iskeletteki tüm fonksiyonlar `NotImplementedError` fırlatan stub'lardır — kasıtlı.
-Kod üretiminde modül modül, her fazı doğrulayarak ilerleyin (bkz. proje planlama
-sohbetindeki "Codex'e Vereceğin Sıra" tablosu).
+Cx22 results are reported as one pooled ShiftEval evaluation across all three
+official source partitions (Pair n=820, Multi-Train n=400, Multi-Test n=100;
+total n=1320). Multi-Test is retained only as a source-partition breakdown
+within that pooled evaluation, not as a separate or earlier Cx22 experiment.
+
+## Uygulama Durumu
+
+Herlev ana hattı, strict cell-wise joint re-analysis ve Cx22 ShiftEval uygulanmış;
+sonuçlar `results/` altında saklanmıştır. Tamamlanmamış, kullanılmayan deney
+taslakları makaleye giden repodan çıkarılmıştır.
