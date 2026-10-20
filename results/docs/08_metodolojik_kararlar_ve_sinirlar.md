@@ -14,7 +14,7 @@
 
 ## Confirmatory ve exploratory ayrımı
 
-**Confirmatory (önceden planlı) analiz**, veri sonucu görülmeden tanımlanan ana soruyu sınar. Bu projede Herlev U-Net, iki ölçüm, dört bozulma, global split conformal ve Herlev test coverage ana confirmatory zincirdir.
+**Confirmatory (önceden planlı) analiz**, yöntem ve karar kuralları sabitlendikten sonra dokunulmamış veride sınanır. Herlev U-Net, iki ölçüm ve dört bozulma başlangıçtaki planlı kapsamdır; ancak Herlev test sonuçları daha sonra yöntem kararlarında incelenmiştir. Bu nedenle mevcut Herlev sonuçları ve strict yeniden analiz, dokunulmamış confirmatory kanıt olarak sunulmaz. Planlı kapsam ile son değerlendirmedeki kanıtın statüsü farklıdır.
 
 **Exploratory / post-hoc (sonradan açıklayıcı) analiz**, görülen bir örüntünün nedenini anlamak için sonradan yapılır. Cx22 pooled ShiftEval, scale-normalized instance-crop karşılaştırması, shift-stratifikasyonu, crowding karşılaştırmaları, mechanism/buffer-ratio analizi ve global-Mondrian-CQR karşılaştırması bu kategoride temkinli yorumlanmalıdır. Exploratory bulgu değerli olabilir; ancak önceden planlanmış kanıtla aynı kesinlikte sunulmaz.
 
@@ -30,3 +30,11 @@ Bu ayrım önemlidir çünkü sonucu gördükten sonra çok sayıda seçim yapma
 - Cx22 mekanizma korelasyonları ilişki gösterir; bir değişkenin diğerine neden olduğunu kanıtlamaz.
 - CQR aralıkları bazı koşullarda daralırken anlamlı conditional undercoverage üretmiştir. Bu nedenle “daha dar aralık her zaman daha iyi” sonucu çıkarılamaz.
 - Herlev test bölmesi, ilk deneylerden sonra yöntem geliştirme kararlarında incelenmiştir. Strict re-analysis bağımlı varyant sorununu giderir; geçmiş test incelemesini geriye dönük olarak “dokunulmamış” hale getirmez. Bu nedenle adaptif/karşılaştırmalı sonuçlar exploratory olarak yazılmalıdır.
+
+## Yeniden üretim ve aralık verimliliği
+
+[Yeniden üretim rehberi](../../REPRODUCIBILITY.md), ham veri gerektirmeyen doğrulama ile görüntülerden yeni inference/eğitimi ayırır. Beş tohum, aynı hücreler üzerinde varyant seçimini tekrarlar; beş bağımsız eğitim veya beş bağımsız test kümesi değildir.
+
+Joint genişlik ve dikdörtgen alanı sonradan eklenen tanılardır. Geniş aralıklar kapsama oranını artırabileceğinden yalnız coverage ile yöntem üstünlüğü iddia edilmez. Bu tanılar yeni eşik seçimi veya test sonuçlarına göre optimizasyon için kullanılmamıştır.
+
+Kalibrasyonda sonlu olmayan skorlar dışlanır. Dolayısıyla geçerli skorlar üzerindeki split-conformal hedefi, geçersiz tahminleri de başarısız sayan failure-aware kapsama için otomatik bir teorik garanti değildir. Her ikisi ayrı raporlanmalıdır.

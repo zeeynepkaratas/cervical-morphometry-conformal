@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import csv
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -18,6 +19,7 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from src.conformal.joint_conformal import joint_covered
+from src.conformal.efficiency import joint_interval_efficiency
 from src.utils.config import RESULTS_TABLES, TARGET_COVERAGE
 
 
@@ -62,6 +64,7 @@ def _coverage_row(cx22_rows: list[dict], calibration: dict, partition: str) -> d
         "joint_valid_prediction_rate": float(jointly_finite.mean()),
         "joint_finite_case_coverage": float(covered[jointly_finite].mean()) if np.any(jointly_finite) else float("nan"),
         "joint_failure_aware_coverage": float(covered.mean()),
+        **joint_interval_efficiency(subset, calibration),
     }
 
 
@@ -70,7 +73,10 @@ def _summary(rows: list[dict]) -> list[dict]:
     for partition in sorted({row["partition"] for row in rows}):
         group = [row for row in rows if row["partition"] == partition]
         record = {"partition": partition, "n_repeats": len(group)}
-        for key in ("joint_valid_prediction_rate", "joint_finite_case_coverage", "joint_failure_aware_coverage"):
+        for key in ("joint_valid_prediction_rate", "joint_finite_case_coverage", "joint_failure_aware_coverage",
+                    "joint_mean_width_nc_ratio", "joint_median_width_nc_ratio",
+                    "joint_mean_width_circularity", "joint_median_width_circularity",
+                    "joint_full_domain_rate_circularity", "joint_mean_rectangle_area"):
             values = np.asarray([row[key] for row in group], dtype=float)
             record[f"mean_{key}"] = float(np.mean(values))
             record[f"min_{key}"] = float(np.min(values))
@@ -105,7 +111,7 @@ def run_cx22_joint_external(
         "target_coverage": TARGET_COVERAGE,
         "n_cx22_images": len(cx22_rows),
         "summary_by_partition": _summary(rows),
-        "repeat_rows_path": str(rows_path.relative_to(ROOT_DIR)),
+        "repeat_rows_path": Path(os.path.relpath(rows_path, ROOT_DIR)).as_posix(),
     }
     summary_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
     return result

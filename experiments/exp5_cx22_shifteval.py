@@ -165,9 +165,8 @@ def run_cx22_shifteval(
     """Run inference only after verifying the committed outcome-blind manifest hash."""
     raw_dir, manifest_path = Path(raw_dir), Path(manifest_path)
     frozen = json.loads(Path(manifest_summary_path).read_text(encoding="utf-8"))
-    observed_hash = hashlib.sha256(manifest_path.read_bytes()).hexdigest()
-    if observed_hash != frozen["manifest_sha256"]:
-        raise ValueError("Cx22 ShiftEval manifest hash differs from the frozen pre-inference manifest.")
+    from src.utils.artifacts import verify_manifest
+    observed_hash = verify_manifest(manifest_path, frozen)
     manifest_rows = [row for row in csv.DictReader(manifest_path.open(encoding="utf-8", newline="")) if row["inclusion_status"] == "included"]
     if len(manifest_rows) != int(frozen["n_included"]):
         raise ValueError("Manifest row count differs from frozen manifest summary.")
@@ -228,6 +227,8 @@ def run_cx22_shifteval(
     _write_rows(Path(output_rows_path), output_rows)
     report = rebuild_cx22_shifteval_reports(output_rows_path, manifest_summary_path, herlev_conformal_summary_path, output_summary_path, output_strata_path)
     report["checkpoint_path"] = str(checkpoint_path)
+    report["manifest_hash_verified"] = observed_hash
+    report["manifest_hash_convention"] = "CRLF normalized to LF" if "canonical_manifest_sha256" in frozen else "raw bytes"
     Path(output_summary_path).write_text(json.dumps(report, indent=2), encoding="utf-8")
     return report
 

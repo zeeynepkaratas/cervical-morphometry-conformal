@@ -23,6 +23,8 @@ results/*.pt
 
 # Large per-sample experiment dumps
 results/tables/exp2_marginal_rows.json
+results/reproduced/
+results/retraining/
 
 # Local OS/editor files
 .DS_Store

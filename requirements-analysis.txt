@@ -1,0 +1,2 @@
+# Frozen-row analysis and behavioral tests; no training libraries required.
+numpy==2.3.5

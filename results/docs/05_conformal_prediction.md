@@ -38,3 +38,11 @@ Bu değerler dört görüntü bozulması altında oluşturulan calibration varya
 Eski all-variant grid, aynı hücrenin 12 bozulmuş kopyasını içerir. Bu kopyalar birbirinden bağımsız kabul edilmemelidir. `experiments/exp2_strict_cellwise_coverage.py`, her hücreden yalnız bir varyant seçer ve bunu beş sabit tohumla tekrarlar. Her tekrarda calibration 183, test 184 hücreden oluşur. Geçersiz bir ölçüm üretildiğinde örnek “uncovered” sayılır; ayrıca geçerli tahmin oranı ayrı raporlanır.
 
 **Joint conformal**, iki ölçümün aynı hücrede birlikte kapsanmasını ister. `src/conformal/joint_conformal.py`, N/C ve dairesellik hatalarını ayrı, disjoint `unet_val` bölmesinden sabitlenen ölçeklerle normalize eder; iki değerin maksimumunu tek hücre skoru yapar. Calibration bu tek skordan `q_hat_joint` üretir. `experiments/exp3_joint_coverage.py` bu strict analizin giriş noktasıdır.
+
+## Küçük kalibrasyon kümeleri
+
+Sıra `k = ceil((n+1)(1-alpha))` olarak seçilir. `k > n` ise sonlu maksimum skor hedefi garanti etmez; eşik `+inf` olur. Örneğin n=5 ve hedef %90 için aralık sınırsızdır; dairesellik alanına kırpılınca [0,1] olur. Ana strict kalibrasyondaki 182–183 geçerli hücrede bu sınır durum tetiklenmez ve kayıtlı eşikler değişmez.
+
+## Coverage ile birlikte genişlik
+
+Joint raporlar, geçerli örneklerde her ölçümün ortalama/medyan genişliğini, dairesellikte tüm [0,1] alanını kaplayan örnek oranını ve ortalama joint dikdörtgen alanını verir. Geçersiz tahminlere sıfır genişlik atanmaz. Teorik kapsama hedefi exchangeability ve skor geçerliliği varsayımlarına bağlıdır; failure-aware coverage ayrı ampirik sonuçtur.

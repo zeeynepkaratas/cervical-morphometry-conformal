@@ -1,80 +1,60 @@
 # Cervical Morphometry Conformal
 
-Bu repo, "Görüntü Bozulmaları Altında Çekirdek/Sitoplazma Oranı ve Çekirdek
-Daireselliği İçin Ortak Conformal Tahmin Aralıkları" projesinin uygulanmış
-deneysel hattını içerir.
+Rahim ağzı hücre segmentasyonundan elde edilen **çekirdek/sitoplazma oranı** ve **çekirdek daireselliği** için belirsizlik analizi.
 
-## Kilitli Kapsam (değiştirme)
+Araştırma sorusu: Segmentasyonun Dice skoru, morfometrik ölçümlerin güvenilirliğini ne kadar yansıtıyor ve görüntü bozulduğunda kalibre edilmiş aralıklar nasıl davranıyor?
 
-- **Ölçümler (2):** N/C oranı, çekirdek daireselliği — bkz. `src/measurements/morphometry.py`
-- **Bozulmalar (4):** Gaussian blur, Gaussian noise, kontrast değişimi, düşük çözünürlük —
-  bkz. `src/degradation/apply_degradations.py`. Şiddet parametreleri tek seferlik seçilir,
-  "doğru filtreyi arama" YOKTUR.
-- **Veri setleri:** Herlev (birincil, zorunlu), Cx22 (keşifsel dış stres testi, güçlendirme katmanı)
+## Durum ve kapsam
 
-## Zorunlu Çekirdek / Güçlendirme Ayrımı (PDF Bölüm 3.1)
+Herlev ana deneyleri, strict hücre-bazlı joint analiz ve Cx22 dış stres testi tamamlanmıştır. Kayıtlı sayısal tahminlerden ana sonuçlar yeniden hesaplanabilir. Bu paket klinik kullanım veya yeni, dokunulmamış bir doğrulama çalışması değildir.
 
-| Zorunlu Çekirdek | Güçlendirme (süre elverirse) |
-|---|---|
-| Herlev veri seti | Cx22 keşifsel dış stres testi |
-| U-Net segmentasyon | 5 tekrar koşusu |
-| İki ölçüm | CQR (Conformalized Quantile Regression) |
-| Dice–morfometrik hata analizi (Deney 1) | Deney 6 — 2 vs 5 ölçüm |
-| Split conformal + ortak max-score | |
+- **Ölçümler:** N/C oranı (çekirdek alanı / çekirdek hariç sitoplazma alanı), çekirdek daireselliği.
+- **Bozulmalar:** Gaussian blur, Gaussian noise, kontrast değişimi, düşük çözünürlük; her biri üç sabit şiddet.
+- **Model:** RGB U-Net; en-boy oranını koruyan 128×128 giriş.
+- **Herlev:** 495 eğitim, 55 doğrulama, 183 kalibrasyon, 184 test hücresi.
+- **Cx22:** Pair 820 + Multi-Train 400 + Multi-Test 100; toplam 1.320 görüntü. Üçü tek pooled dış stres testidir.
 
-`src/utils/config.py` içindeki `RUN_CQR`, `RUN_CX22_VALIDATION`,
-`RUN_EXPLORATORY_5_MEASUREMENTS` bayrakları bu ayrımı kodda da yansıtır.
+Kapsam ve bozulma şiddetleri sonuçlara göre yeniden seçilmez. Cx22 model eğitiminde, model seçiminde veya kalibrasyonda kullanılmaz.
 
-## Çalıştırma Sırası (fazlı — bkz. proje planı sohbeti)
+## Hızlı sonuç doğrulama
 
-1. **Faz 1 — Veri:** `src/data_prep/load_herlev.py` → `validate_herlev_dataset()` çalıştır,
-   917 görüntü + maske eşleşmesini doğrula.
-2. **Faz 2 — Segmentasyon:** `src/segmentation/train_unet.py` ile eğit, validation Dice > 0.85
-   hedefle.
-3. **Faz 3 — Ölçümler:** `src/measurements/morphometry.py` fonksiyonlarını birkaç örnekte
-   elle doğrula.
-4. **Faz 4 — ERKEN KONTROL NOKTASI:** `experiments/exp1_dice_correlation.py` çalıştır.
-   Örüntü ("benzer Dice, farklı hata") doğrulanmazsa DUR ve kapsamı yeniden değerlendir.
-5. **Faz 5 — Zorunlu çekirdek tamamlama:** `apply_degradations.py` + `split_conformal.py`
-   + Deney 2.
-6. **Faz 6 — Güçlendirme:** `experiments/exp3_mondrian_coverage.py`,
-   `experiments/exp4_cqr_coverage.py` ve Cx22 ShiftEval dış değerlendirmesi.
+Python 3.12 ile, depo kökünde:
 
-## Strict Cell-Wise Protocol
+```bash
+python -m pip install -r requirements-analysis.txt
+python -m unittest discover -s tests -v
+python -m experiments.reproduce_results
+```
 
-The original all-variant grid remains an empirical degradation analysis. The
-strict protocol in `experiments/exp2_strict_cellwise_coverage.py` selects one
-degradation variant per original cell for each of five fixed seeds, uses the
-disjoint U-Net validation split only to fix joint-score normalization scales,
-and reports failure-aware coverage. `experiments/exp3_joint_coverage.py` is
-the joint split-conformal entry point; `experiments/exp5_cx22_joint_external.py`
-applies fixed Herlev calibration to Cx22 as an exploratory external stress test.
-Historical script filenames are retained for repository stability; the shared
-`exp3_` prefix does not imply that joint and Mondrian analyses are the same
-paper experiment.
+Bu yol yalnız NumPy gerektirir; ham görüntü veya PyTorch gerektirmez. Altı girdi dosyasının SHA-256 özeti doğrulanır, Herlev'deki 15 ve Cx22'deki 20 tekrar satırının eski eşik/kapsama değerleri karşılaştırılır. Yeni çıktılar `results/reproduced/` içine yazılır; dondurulmuş referanslar korunur.
 
-## Veri Sızıntısı — KRİTİK KURAL
+Yerel model doğrulama, ham veri yerleşimi, eğitim ve görüntülerden yeniden hesaplama için [yeniden üretim rehberi](REPRODUCIBILITY.md).
 
-`src/data_prep/group_split.py`: bölme işlemi bozulmuş varyantlar üretilmeden ÖNCE,
-orijinal hücre kimliği bazında yapılır. Ana conformal kalibrasyon/test deneylerinde
-her hücreden yalnızca bir varyant kullanılır (5 farklı tohumla tekrarlanır).
+## Ana sonuçlar
 
-## Cx22 Yedek Planı
+| Analiz | Sonuç |
+| --- | --- |
+| Herlev strict joint failure-aware coverage | Ortalama %88,59; beş varyant-seçim tekrarında %86,41–%90,22 |
+| Cx22 strict joint coverage | Ortalama %87,67; beş tekrarda %85,23–%90,83 |
+| Cx22 joint dairesellik aralığı genişliği | [0,1] alanına kırpılmış ortalama genişlik, tekrara göre 0,820–0,939 |
 
-`src/data_prep/load_cx22.py::validate_cx22_compatibility()` yalnızca Cx22
-girdi/etiket kullanılabilirliğini denetler. Gerektiğinde
-`experiments/exp5_cx22_validation.py` Herlev-içi ağır-bozulma fallback
-özetini üretir; Cx22 ShiftEval ise ayrı, pooled n=1320 hattıdır.
+Hedef kapsama %90'dır. Aralık genişliği sonuçları **sonradan eklenen verimlilik tanılarıdır**; eşikleri veya kapsama sonuçlarını değiştirmez. Geniş aralıklarla yüksek kapsama elde etmek, tek başına kullanışlı belirsizlik tahmini demek değildir.
 
-## Cx22 Reporting Convention
+Kaynaklar: `results/tables/exp2_strict_cellwise_summary.json`, `exp5_cx22_joint_external_summary.json`, `joint_interval_efficiency_summary.json`.
 
-Cx22 results are reported as one pooled ShiftEval evaluation across all three
-official source partitions (Pair n=820, Multi-Train n=400, Multi-Test n=100;
-total n=1320). Multi-Test is retained only as a source-partition breakdown
-within that pooled evaluation, not as a separate or earlier Cx22 experiment.
+## Yöntem ve yorum sınırları
 
-## Uygulama Durumu
+- Aynı hücrenin 12 bozulmuş kopyası bağımsız örnek sayılmaz. Strict analiz her hücreden bir varyant seçer; beş tohum yeni model eğitimleri veya bağımsız test kümeleri değildir.
+- Joint skorun ölçekleri ayrı `unet_val` bölmesinden sabitlenir. Geçersiz test tahminleri failure-aware coverage'da başarısız sayılır.
+- Herlev test sonuçları geçmiş geliştirme kararlarında incelenmiştir. Strict yeniden analiz bu geçmişi silmez; mevcut sonuçlar dokunulmamış confirmatory doğrulama olarak sunulmaz.
+- Cx22'de gerçek maske hedef hücrenin crop merkezini/ölçeğini belirler. Bu, otomatik hücre bulma veya deployment testi değildir; Cx22 için formal coverage garantisi yoktur.
+- Kalibrasyonda sonlu olmayan skorların çıkarılması nedeniyle teorik hedef, geçerli skor koşullarından ve exchangeability varsayımından ayrı düşünülemez. Failure-aware kapsama ampirik olarak raporlanır.
 
-Herlev ana hattı, strict cell-wise joint re-analysis ve Cx22 ShiftEval uygulanmış;
-sonuçlar `results/` altında saklanmıştır. Tamamlanmamış, kullanılmayan deney
-taslakları makaleye giden repodan çıkarılmıştır.
+## Projeyi okumak için
+
+- [Amaç ve araştırma sorusu](results/docs/01_giris_ve_amac.md)
+- [Conformal yöntem](results/docs/05_conformal_prediction.md)
+- [Sonuçlar ve anlamları](results/docs/07_sonuclar_ve_anlamlari.md)
+- [Metodolojik kararlar ve sınırlar](results/docs/08_metodolojik_kararlar_ve_sinirlar.md)
+- [Dosya haritası](results/docs/09_dosya_haritasi.md)
+- [Makaleye geçiş notları](results/docs/10_makaleye_gecis_notlari.md)

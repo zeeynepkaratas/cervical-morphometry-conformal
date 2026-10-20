@@ -44,7 +44,7 @@ Bu belge deneysel repo ile makale bölümleri arasında köprü kurar. Sayılar 
 
 ## Açık karar noktaları
 
-Kod ve sonuç dosyaları açısından yeni bir deneysel zorunluluk görünmüyor. Makale yazımı öncesi verilecek editoryal kararlar şunlardır:
+Yazılım doğrulaması ve kayıtlı sonuçların yeniden üretimi, yeni bağımsız bilimsel doğrulama değildir. Çalışma keşifsel olarak sunulabilir; confirmatory iddia için yöntem sabitlendikten sonra dokunulmamış bir veri kaynağı gerekir. Makale öncesi kararlar şunlardır:
 
 1. Hedef dergi/konferansın double-blind olup olmadığı ve buna göre anonim repo/paket stratejisi.
 2. CQR’nin ana metinde mi, ek materyalde mi sunulacağı. Sonuçta bazı koşullarda undercoverage ürettiği için “varsayılan en iyi yöntem” olarak yazılmamalıdır.
@@ -53,3 +53,11 @@ Kod ve sonuç dosyaları açısından yeni bir deneysel zorunluluk görünmüyor
 5. Tarihsel olarak incelenmiş Herlev test sonuçlarının exploratory olarak nasıl çerçeveleneceği; yeni/prospektif bir doğrulama veri kaynağı elde edilirse confirmatory testin nasıl ayrılacağı.
 
 Bu kararlar, mevcut sayıları veya kod mantığını değiştirmeyi gerektirmez; makalenin kapsamını ve sunumunu belirler.
+
+## Güncellenen raporlama paketi
+
+- Ana coverage tablolarının yanına joint genişlik, full-domain oranı ve dikdörtgen alanını ekleyin: `joint_interval_efficiency_summary.json`.
+- Bu verimlilik tanılarını post-hoc olarak etiketleyin; test sonucuna bakarak yeni eşik seçilmediğini belirtin.
+- Beş varyant-seçim tekrarını beş bağımsız model eğitimi gibi sunmayın.
+- Yeniden üretim komutlarını ve hash doğrulamasını [rehberden](../../REPRODUCIBILITY.md) alın.
+- Bulguların özgünlüğü ve hedef dergiye uygunluğu ayrıca literatür ve hakem değerlendirmesi gerektirir; bu kod bakımı yayın kabulünü veya klinik kullanıma hazır oluşu göstermez.
