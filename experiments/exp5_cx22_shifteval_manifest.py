@@ -131,6 +131,7 @@ def build_cx22_shifteval_manifest(
     output_path = Path(output_path)
     _write_csv(output_path, rows)
     manifest_sha256 = hashlib.sha256(output_path.read_bytes()).hexdigest()
+    from src.utils.artifacts import canonical_text_sha256
     summary = {
         "name": "Cx22-ShiftEval",
         "description": "Cx22-derived structured external evaluation protocol; not an independent third dataset.",
@@ -152,6 +153,7 @@ def build_cx22_shifteval_manifest(
         },
         "analysis_rule": "Each shift axis is analysed separately; outcome stratification is prohibited and axes are not cross-tabulated into small cells.",
         "manifest_sha256": manifest_sha256,
+        "canonical_manifest_sha256": canonical_text_sha256(output_path),
         "manifest_generated_utc": datetime.now(timezone.utc).isoformat(),
         "manifest_path": str(output_path.resolve().relative_to(ROOT_DIR)),
     }

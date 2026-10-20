@@ -31,9 +31,8 @@ def calibrate_split_conformal(cal_scores: np.ndarray, alpha: float = 1 - TARGET_
     Uses the standard finite-sample conformal quantile:
         k = ceil((n + 1) * (1 - alpha))
 
-    If k exceeds n, the maximum calibration score is used. This is the usual
-    conservative fallback when the requested coverage is high for the available
-    calibration size.
+    If k exceeds n, return +infinity: no finite observed order statistic can
+    provide the requested distribution-free rank coverage at that sample size.
     """
     scores = np.sort(np.asarray(cal_scores, dtype=float))
     scores = scores[np.isfinite(scores)]
@@ -43,7 +42,8 @@ def calibrate_split_conformal(cal_scores: np.ndarray, alpha: float = 1 - TARGET_
         raise ValueError(f"alpha must be in (0, 1), got {alpha}")
 
     k = int(math.ceil((scores.size + 1) * (1.0 - alpha)))
-    k = min(max(k, 1), scores.size)
+    if k > scores.size:
+        return float("inf")
     return float(scores[k - 1])
 
 
@@ -53,8 +53,8 @@ def predict_interval(point_prediction: float, q_hat: float) -> tuple:
     q_hat = float(q_hat)
     if not np.isfinite(point_prediction):
         raise ValueError(f"point_prediction must be finite, got {point_prediction}")
-    if not np.isfinite(q_hat) or q_hat < 0:
-        raise ValueError(f"q_hat must be finite and non-negative, got {q_hat}")
+    if np.isnan(q_hat) or q_hat < 0:
+        raise ValueError(f"q_hat must be non-negative (possibly +inf), got {q_hat}")
     return point_prediction - q_hat, point_prediction + q_hat
 
 

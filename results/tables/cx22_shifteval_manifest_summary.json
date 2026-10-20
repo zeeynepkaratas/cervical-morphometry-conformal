@@ -62,5 +62,7 @@
   "analysis_rule": "Each shift axis is analysed separately; outcome stratification is prohibited and axes are not cross-tabulated into small cells.",
   "manifest_sha256": "669209792d4869f0b8d572cf996ef8e4894fef9e7c835767de8a2445b8748bb3",
   "manifest_generated_utc": "2026-07-25T15:34:53.347546+00:00",
-  "manifest_path": "results\\tables\\cx22_shifteval_manifest.csv"
+  "manifest_path": "results\\tables\\cx22_shifteval_manifest.csv",
+  "canonical_manifest_sha256": "723e1eed0de5213caa8b372bf33ea161aea13e4b97f06f7d9d012673d35fe9e8",
+  "canonical_hash_note": "Added for cross-platform verification; only CRLF is normalized to LF. Original manifest_sha256 and generated timestamp are preserved."
 }

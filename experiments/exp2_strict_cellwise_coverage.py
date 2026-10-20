@@ -8,7 +8,9 @@ correlated variants. Non-finite predictions are failure-aware uncovered cases.
 from __future__ import annotations
 
 import csv
+import gzip
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Iterable
@@ -20,6 +22,7 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from src.conformal.joint_conformal import calibration_scales, calibrate_joint_split_conformal, joint_covered
+from src.conformal.efficiency import joint_interval_efficiency
 from src.conformal.split_conformal import calibrate_split_conformal
 from src.data_prep.group_split import sample_one_variant_per_cell
 from src.utils.config import MEASUREMENTS, RANDOM_SEED, RESULTS_TABLES, TARGET_COVERAGE
@@ -29,7 +32,9 @@ STRICT_REPEAT_SEEDS = tuple(range(RANDOM_SEED, RANDOM_SEED + 5))
 
 
 def _load_rows(path: Path) -> tuple[list[dict], list[dict]]:
-    payload = json.loads(path.read_text(encoding="utf-8"))
+    opener = gzip.open if path.suffix == ".gz" else open
+    with opener(path, "rt", encoding="utf-8") as handle:
+        payload = json.load(handle)
     return payload["calibration"], payload["test"]
 
 
@@ -97,6 +102,7 @@ def _joint_result(scale_rows: list[dict], calibration_rows: list[dict], test_row
         "joint_valid_prediction_rate": float(finite.mean()),
         "joint_finite_case_coverage": float(covered[finite].mean()) if np.any(finite) else float("nan"),
         "joint_failure_aware_coverage": float(covered.mean()),
+        **joint_interval_efficiency(test_rows, calibration),
     }
 
 
@@ -126,7 +132,7 @@ def _write_csv(path: Path, rows: list[dict]) -> None:
 
 
 def run_strict_cellwise_analysis(
-    rows_path: Path = RESULTS_TABLES / "exp2_marginal_rows.json",
+    rows_path: Path = RESULTS_TABLES / "exp2_marginal_rows.json.gz",
     scale_rows_path: Path = RESULTS_TABLES / "exp2_scale_split_rows.json",
     output_dir: Path = RESULTS_TABLES,
     seeds: tuple[int, ...] = STRICT_REPEAT_SEEDS,
@@ -162,7 +168,7 @@ def run_strict_cellwise_analysis(
         "n_scale_cells_per_repeat": len({row['cell_id'] for row in all_scale_rows}),
         "marginal_summary": _aggregate([row for row in repeat_rows if row["analysis"] == "marginal"], ["analysis", "measurement"]),
         "joint_summary": _aggregate([row for row in repeat_rows if row["analysis"] == "joint"], ["analysis", "measurement"]),
-        "repeat_rows_path": str(repeat_path.relative_to(ROOT_DIR)),
+        "repeat_rows_path": Path(os.path.relpath(repeat_path, ROOT_DIR)).as_posix(),
     }
     summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
     return summary

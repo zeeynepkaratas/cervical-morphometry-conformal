@@ -1,6 +1,7 @@
 """Experiment 2: marginal split conformal coverage under image degradations."""
 
 import csv
+import gzip
 import hashlib
 import json
 import sys
@@ -256,6 +257,10 @@ def run_experiment_2(
         json.dumps({"calibration": calibration_rows, "test": test_rows}, indent=2),
         encoding="utf-8",
     )
+    # Keep the lightweight, model-free reproduction input in sync with inference.
+    with (output_dir / "exp2_marginal_rows.json.gz").open("wb") as raw:
+        with gzip.GzipFile(fileobj=raw, mode="wb", filename="", mtime=0) as compressed:
+            compressed.write((output_dir / "exp2_marginal_rows.json").read_bytes())
     (output_dir / "exp2_marginal_coverage_summary.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     return result
 

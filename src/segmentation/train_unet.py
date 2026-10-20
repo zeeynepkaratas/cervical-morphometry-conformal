@@ -324,5 +324,5 @@ def train_unet(
 
 
 if __name__ == "__main__":
-    # TODO: load train/val ids from the group split output, then call train_unet.
-    pass
+    from experiments.train_frozen_split import main
+    main()

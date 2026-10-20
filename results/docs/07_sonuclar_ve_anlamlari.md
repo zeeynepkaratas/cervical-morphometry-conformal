@@ -61,3 +61,9 @@ N/C için aynı sistematik undercoverage görülmez. Crowded grupta coverage %94
 ## Temkinli yorum
 
 Sonuçlar, “yüksek Dice her morfometrik ölçüm için güvenilir aralık demektir” varsayımını desteklememektedir. Herlev’de hedefe yakın global coverage elde edilse de koşula bağlı kırılmalar vardır. Cx22’de ise N/C ve dairesellik farklı davranır: N/C dış stres testinde hedefe yakın görünürken dairesellik belirgin biçimde düşük coverage verir. Bu, daireselliğin sınır hatalarına daha hassas olabileceği açıklamasıyla uyumludur; klinik kullanıma hazır bir performans veya Cx22’ye formal coverage garantisi iddia edilmez.
+
+## Joint aralıkların verimliliği (sonradan eklenen tanı)
+
+Kaynak: `results/tables/joint_interval_efficiency_summary.json`. Aynı eşikler ve kayıtlı tahminler kullanılmış; kapsama sonuçları değiştirilmemiştir. Cx22 pooled dairesellik aralıklarının [0,1] alanına kırpılmış ortalama genişliği, beş tekrarda 0,820–0,939; tüm alanı kaplayan örnek oranı %2,88–%34,32 arasındadır.
+
+[0,1] aralığı geçerli dairesellik referanslarında %100 kapsama veren basit bir karşılaştırmadır. Dolayısıyla joint kapsamanın yükselmesi tek başına daha keskin veya daha kullanışlı belirsizlik tahmini kanıtı değildir. N/C üstten sınırsız olduğu için bu karşılaştırma tek başına joint başarı oranı için bir sonlu-alan baseline değildir. Genişlik ve joint dikdörtgen alanı ayrı okunmalıdır.

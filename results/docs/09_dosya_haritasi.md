@@ -73,3 +73,15 @@ Tamamlanmamış joint-CQR, adaptivity ve 2-vs-5-measurement taslakları aktif de
 Paralel dış değerlendirme hattı: `Cx22 ham arşivleri` → `load_cx22.py` → `cx22_bbox_crop.py + exp5_cx22_shifteval_manifest.py` → `exp5_cx22_shifteval.py` → `exp5_cx22_mechanism_diagnostics.py`.
 
 Ana sonuçları okumak için önce `exp2_marginal_coverage_summary.json`, sonra `exp5_cx22_shifteval_summary.json`, sonra da ilgili rows/strata CSV dosyaları okunmalıdır.
+
+## Yeniden üretim ve test araçları
+
+- `experiments/reproduce_results.py`: model gerektirmeden kayıtlı sonuçları hash ve tarihsel tablo karşılaştırmalarıyla doğrular.
+- `experiments/fetch_checkpoint.py`: dondurulmuş model dosyasını indirir veya yerelden kopyalar; SHA-256 doğrular.
+- `experiments/train_frozen_split.py`: kayıtlı eğitim/doğrulama ayrımıyla çalışan eğitim komutu.
+- `src/conformal/efficiency.py`: joint aralık genişliği, full-domain oranı ve dikdörtgen alanı.
+- `src/utils/artifacts.py`: Cx22 manifestinin platformlar arası doğrulaması.
+- `tests/`: davranış, veri ayrımı, model bütünlüğü ve sonuç yeniden üretim testleri.
+- `results/tables/exp2_marginal_rows.json.gz`: dondurulmuş Herlev ara tahminleri.
+- `results/tables/frozen_analysis_inputs.json`: hafif analiz girdilerinin hash manifesti.
+- `results/tables/joint_interval_efficiency_summary.json`: sonradan eklenen aralık verimliliği tanıları.

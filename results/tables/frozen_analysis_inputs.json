@@ -1,0 +1,32 @@
+{
+  "source_revision": "a5a3160f5942b219fc5011b5ab33332b51cf04f0",
+  "description": "Frozen numeric predictions and evaluation rows; no raw images. Compression is lossless with a fixed gzip timestamp.",
+  "uncompressed_herlev_rows_sha256": "6453a0135c7324d24eca700734925388dc78cbd9b90b39fbff4dedf117b8b1ed",
+  "checkpoint_sha256": "91e8b3430ea8425634485bbfdd210c2b559a10f71a906498db1c4bdd089a835f",
+  "files": [
+    {
+      "path": "results/tables/exp2_marginal_rows.json.gz",
+      "sha256": "b14c367dbdebba8db9c3f0d0bd88b2e809b064b6537ba03176add960b988ac52"
+    },
+    {
+      "path": "results/tables/exp2_scale_split_rows.json",
+      "sha256": "7253e8d703617e89b3ce85b5438a7aefb17a952e3aea8a7df5fc33c28f3e55a7"
+    },
+    {
+      "path": "results/tables/exp5_cx22_shifteval_rows.csv",
+      "sha256": "cdc78758df14a641ea3ab5d80805a7954f4cb1c418e6af67857c8295fee4a3d9"
+    },
+    {
+      "path": "results/tables/herlev_group_split.json",
+      "sha256": "c9c5eb7fef270276206549158e70494d21ecaea56d83e780c9d58a509fbad67f"
+    },
+    {
+      "path": "results/tables/exp2_strict_cellwise_repeats.csv",
+      "sha256": "e55ad689e595a6d958a8d182f0c49feb1bc2a16b7efe0a14ee461a35f0fd3c6c"
+    },
+    {
+      "path": "results/tables/exp5_cx22_joint_external_repeats.csv",
+      "sha256": "15a1e5e0bf587597bb8f935af53ffcedde7953eec0b6154c937f82f30a3c460d"
+    }
+  ]
+}
