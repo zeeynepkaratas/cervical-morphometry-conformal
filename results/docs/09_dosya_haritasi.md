@@ -77,7 +77,7 @@ Ana sonuçları okumak için önce `exp2_marginal_coverage_summary.json`, sonra 
 ## Yeniden üretim ve test araçları
 
 - `experiments/reproduce_results.py`: model gerektirmeden kayıtlı sonuçları hash ve tarihsel tablo karşılaştırmalarıyla doğrular.
-- `experiments/fetch_checkpoint.py`: dondurulmuş model dosyasını indirir veya yerelden kopyalar; SHA-256 doğrular.
+- `experiments/fetch_checkpoint.py`: dondurulmuş model dosyasını yerelden kopyalar ve SHA-256 doğrular; herkese açık model dağıtımı ayrı onay bekler.
 - `experiments/train_frozen_split.py`: kayıtlı eğitim/doğrulama ayrımıyla çalışan eğitim komutu.
 - `src/conformal/efficiency.py`: joint aralık genişliği, full-domain oranı ve dikdörtgen alanı.
 - `src/utils/artifacts.py`: Cx22 manifestinin platformlar arası doğrulaması.

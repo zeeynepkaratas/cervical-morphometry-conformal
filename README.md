@@ -28,7 +28,7 @@ python -m experiments.reproduce_results
 
 Bu yol yalnız NumPy gerektirir; ham görüntü veya PyTorch gerektirmez. Altı girdi dosyasının SHA-256 özeti doğrulanır, Herlev'deki 15 ve Cx22'deki 20 tekrar satırının eski eşik/kapsama değerleri karşılaştırılır. Yeni çıktılar `results/reproduced/` içine yazılır; dondurulmuş referanslar korunur.
 
-Model indirme, ham veri yerleşimi, eğitim ve görüntülerden yeniden hesaplama için [yeniden üretim rehberi](REPRODUCIBILITY.md).
+Yerel model doğrulama, ham veri yerleşimi, eğitim ve görüntülerden yeniden hesaplama için [yeniden üretim rehberi](REPRODUCIBILITY.md).
 
 ## Ana sonuçlar
 

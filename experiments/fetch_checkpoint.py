@@ -1,20 +1,18 @@
-"""Fetch the frozen U-Net checkpoint and verify its recorded SHA-256.
+"""Install a local frozen U-Net checkpoint and verify its recorded SHA-256.
 
-No PyTorch installation is needed to download or verify the file.
+No PyTorch installation is needed to copy or verify the file.
 """
 
 import argparse
 import hashlib
 import shutil
 import tempfile
-import urllib.request
 from pathlib import Path
 
 from src.utils.config import ROOT_DIR
 
 
 CHECKPOINT_SHA256 = "91e8b3430ea8425634485bbfdd210c2b559a10f71a906498db1c4bdd089a835f"
-CHECKPOINT_URL = "https://github.com/zeeynepkaratas/cervical-morphometry-conformal/releases/download/reproducibility-v1/unet_best_trainval.pt"
 
 
 def sha256(path: Path) -> str:
@@ -31,15 +29,16 @@ def fetch_checkpoint(destination: Path, source: Path | None = None) -> Path:
         if sha256(destination) != CHECKPOINT_SHA256:
             raise ValueError("Existing checkpoint hash differs; refusing to overwrite it.")
         return destination
+    if source is None:
+        raise FileNotFoundError(
+            "The checkpoint has not been publicly distributed. Supply --source with a local copy "
+            "of unet_best_trainval.pt. Frozen-row reproduction does not require this file."
+        )
     destination.parent.mkdir(parents=True, exist_ok=True)
-    # Download/copy into a temporary file and publish only after validation.
+    # Copy into a temporary file and install only after validation.
     with tempfile.TemporaryDirectory(dir=destination.parent) as directory:
         temporary = Path(directory) / "checkpoint.pt"
-        if source is None:
-            with urllib.request.urlopen(CHECKPOINT_URL, timeout=120) as response, temporary.open("wb") as output:
-                shutil.copyfileobj(response, output)
-        else:
-            shutil.copyfile(Path(source), temporary)
+        shutil.copyfile(Path(source), temporary)
         if sha256(temporary) != CHECKPOINT_SHA256:
             raise ValueError("Downloaded checkpoint SHA-256 does not match the frozen model.")
         temporary.replace(destination)

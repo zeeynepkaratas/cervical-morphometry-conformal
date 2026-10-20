@@ -25,23 +25,19 @@ Referans tablolar doğrudan karşılaştırılır; eşik, örnek sayısı veya k
 
 ## 2. Dondurulmuş model ağırlıkları
 
-```bash
-python -m experiments.fetch_checkpoint
-```
-
-Komut model sürüm varlığını indirir ve SHA-256 değerini doğrular:
-
-```text
-91e8b3430ea8425634485bbfdd210c2b559a10f71a906498db1c4bdd089a835f
-```
-
-Hedef: `results/unet_best_trainval.pt`. Eşleşmeyen mevcut bir dosya üzerine yazılmaz. Aynı modeli yerel kopyadan kurmak için:
+Model dosyası herkese açık paylaşılmamıştır. Ham veri olmadan sayısal sonuç doğrulaması bu dosyayı gerektirmez. Görüntülerden inference için özgün yerel kopyayı kurup SHA-256 değerini doğrulayın:
 
 ```bash
 python -m experiments.fetch_checkpoint --source /path/to/unet_best_trainval.pt
 ```
 
-[Sürüm varlığı](https://github.com/zeeynepkaratas/cervical-morphometry-conformal/releases/tag/reproducibility-v1). Model dosyası Git geçmişine eklenmez; sayısal sonuç doğrulaması için indirilmesi gerekmez.
+Beklenen SHA-256:
+
+```text
+91e8b3430ea8425634485bbfdd210c2b559a10f71a906498db1c4bdd089a835f
+```
+
+Hedef: `results/unet_best_trainval.pt`. Eşleşmeyen mevcut bir dosya üzerine yazılmaz. Yerel kopya yoksa 5. bölümdeki eğitim yoluyla yeni bir model üretilebilir; yeni modelin tarihsel sayılarla aynı sonucu vermesi garanti edilmez. Modelin herkese açık dağıtımı, sahibinin ayrıca açık paylaşım onayını beklemektedir. Bu nedenle paket görüntülerden tarihsel inference için tamamen bağımsız bir indirme paketi olarak sunulmaz.
 
 ## 3. Ham verileri edinme ve yerleştirme
 
@@ -73,7 +69,7 @@ python -c "from pathlib import Path; from src.data_prep.load_herlev import valid
 
 `requirements-lock.txt` tarihsel doğrudan paket sürümleri kaydıdır; tam ortam ihracı değildir. Tarihsel manifestin üretildiği ortamda bazı eğitim paketleri kurulu değildi. Temiz ortamda model eğitiminin birebir tekrarlandığı iddia edilmez. Yeni bir inference/eğitim çalışmasında kullanılan gerçek paket sürümlerini ayrıca kaydedin; kilit dosyasını doğrulanmış ortam kaydı gibi yorumlamayın.
 
-Dondurulmuş modeli indirdikten sonra Herlev calibration/test ve ayrı ölçek bölmesinin tahminleri:
+Dondurulmuş modeli yerel kopyadan doğruladıktan sonra Herlev calibration/test ve ayrı ölçek bölmesinin tahminleri:
 
 ```bash
 python -m experiments.exp2_marginal_coverage

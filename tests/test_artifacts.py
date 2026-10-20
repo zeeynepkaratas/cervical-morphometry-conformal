@@ -11,6 +11,11 @@ from src.utils.artifacts import canonical_text_sha256, verify_manifest
 
 
 class ArtifactTests(unittest.TestCase):
+    def test_missing_model_has_actionable_local_source_message(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(FileNotFoundError, "--source"):
+                fetch_checkpoint(Path(directory) / "missing.pt")
+
     def test_manifest_line_endings_are_portable_but_content_is_locked(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "manifest.csv"
